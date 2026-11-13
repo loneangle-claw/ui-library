@@ -112,6 +112,11 @@
     },
     {
       "group": "風格",
+      "name": "背景",
+      "code": "BG"
+    },
+    {
+      "group": "風格",
       "name": "字體排版",
       "code": "TY"
     },
@@ -364,6 +369,138 @@
       "preview": "db-01",
       "hue": 28,
       "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bg-01",
+      "code": "BG-01",
+      "category": "背景",
+      "name": "網格漸層",
+      "en": "Mesh Gradient",
+      "desc": "紫、青、粉三團柔光色塊疊在深色底上，點一下色塊會漂到新位置。",
+      "spec": "深色底（近黑帶紫），上面放 3 團大型圓形色塊：紫、青、粉。\n每團色塊 blur 36–60px、不透明度 60–80%，互相重疊混色。\n平時緩慢漂移，12–20 秒一輪，來回 ease-in-out，三團週期錯開。\n點擊：三團色塊各自移到隨機新位置，過渡約 1.2 秒。\n標題與按鈕放最上層，白字加輕微陰影確保可讀。\n適合：首頁主視覺、登入頁、產品發表頁。",
+      "tags": [
+        "漸層",
+        "柔光",
+        "漂移",
+        "深色"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-01",
+      "hue": 270,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "bg-02",
+      "code": "BG-02",
+      "category": "背景",
+      "name": "極光",
+      "en": "Aurora Background",
+      "desc": "幾道發光的極光色帶在深藍夜空中搖曳，點一下色帶會湧起並變亮。",
+      "spec": "深藍夜空底色，散布少量小星點。\n2–3 道傾斜的橢圓色帶（綠、青、紫），線性漸層加 blur 20–30px。\n色帶左右搖擺並輕微伸縮，週期 8–13 秒，彼此錯開。\n混合模式用 screen，色帶重疊處更亮。\n點擊：色帶亮度與高度瞬間拉高（brightness 約 1.7、scaleY 約 1.35），約 1 秒回落。\n適合：深色主題首頁、夜間模式、科技或 AI 產品。",
+      "tags": [
+        "極光",
+        "發光",
+        "搖曳",
+        "深色"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-02",
+      "hue": 165,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "bg-03",
+      "code": "BG-03",
+      "category": "背景",
+      "name": "雜訊質感",
+      "en": "Noise Texture",
+      "desc": "柔和光暈上疊一層底片顆粒，點一下顆粒和光暈一起脈動。",
+      "spec": "底層是一兩團大型柔和光暈（紫、粉）。\n上面疊一層雜訊顆粒（SVG feTurbulence 產生），不透明度 15–25%，混合模式 overlay。\n顆粒每 0.2 秒小幅位移，做出底片跳動感。\n點擊：顆粒不透明度和光暈亮度同時拉高再回落，約 0.7 秒。\n顆粒能蓋掉純漸層的色帶斷層（banding），畫面更有質感。\n適合：作品集、編輯風格網站、高質感品牌頁。",
+      "tags": [
+        "顆粒",
+        "底片",
+        "光暈",
+        "質感"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-03",
+      "hue": 300,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "bg-04",
+      "code": "BG-04",
+      "category": "背景",
+      "name": "點陣網格",
+      "en": "Dot Grid",
+      "desc": "向邊緣淡出的點陣網格，點一下會從點擊處擴散一圈波紋點亮圓點。",
+      "spec": "深色底鋪規律小圓點：直徑約 2px、間距 16–20px，用重複的 radial-gradient 背景。\n加徑向遮罩，讓點陣從中央往四周淡出。\n底部加一團淡淡的主色光暈。\n點擊：從點擊位置擴散一圈環形波紋，經過的圓點變成主色並發光，約 1.2 秒擴散到邊緣。\n波紋做法：第二層彩色點陣加環形遮罩，遮罩半徑隨時間放大（@property 註冊 --r）。\n適合：開發工具、SaaS 首頁、技術文件。",
+      "tags": [
+        "點陣",
+        "波紋",
+        "網格",
+        "科技感"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-04",
+      "hue": 205,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "bg-05",
+      "code": "BG-05",
+      "category": "背景",
+      "name": "聚光燈",
+      "en": "Spotlight Effect",
+      "desc": "一道柔光在暗色網格上緩慢遊走，點一下光會滑到點擊處並照亮格線。",
+      "spec": "深色底，鋪一層很暗的細格線：1px、間距 24–32px。\n一道大型圓形柔光（徑向漸層）在畫面上緩慢遊走。\n光照到的地方格線變亮：第二層亮格線加跟著光源走的徑向遮罩。\n點擊：光源約 0.8 秒滑到點擊位置，停留約 2.5 秒後繼續遊走。\n桌面版可改成跟隨游標。\n適合：產品首頁、功能介紹區塊、深色登陸頁。",
+      "tags": [
+        "聚光燈",
+        "格線",
+        "跟隨",
+        "深色"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-05",
+      "hue": 255,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "bg-06",
+      "code": "BG-06",
+      "category": "背景",
+      "name": "流動漸層",
+      "en": "Animated Gradient",
+      "desc": "緩慢旋轉流動的多色漸層，點一下會轉到下一個角度並換色調。",
+      "spec": "3–4 色的線性漸層，畫在比容器大 2–3 倍的方塊上。\n方塊緩慢旋轉，週期 14–18 秒，容器只露出中間一塊，看起來是顏色在流動。\n點擊：整體再轉 75 度、色相偏移 50 度，過渡約 1.1 秒。\n上面疊一層由中央往外加深的暗化，讓白字標題保持可讀。\n適合：活動頁、行銷橫幅，或按鈕、卡片的局部背景。",
+      "tags": [
+        "漸層",
+        "流動",
+        "旋轉",
+        "換色"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Backgrounds 背景 Part 1〉",
+      "preview": "bg-06",
+      "hue": 320,
+      "addedAt": "2026-11-14"
     }
   ]
 }

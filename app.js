@@ -17,7 +17,7 @@ const PREVIEWS = {
   'bn-10':['home','explore','folder','bookmark','user'],
   'bn-11':['home','folder','grid','search','user']
 };
-const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28};
+const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320};
 const STATUSES = ['收藏','想用','已用'];
 
 const $ = id => document.getElementById(id);
@@ -46,7 +46,53 @@ function filtered(){
 }
 function clearFilters(){ view.cat = '全部'; view.status = '全部'; view.star = false; view.q = ''; $('q').value = ''; }
 
+/* BG 系列：背景效果示範，點一下會互動 */
+const BG_FX = {
+  '1': '<span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>',
+  '2': '<span class="bands"><span class="band a3"></span><span class="band a1"></span><span class="band a2"></span></span>',
+  '3': '<span class="glow"></span><span class="grain"></span>',
+  '4': '<span class="dots"></span>',
+  '5': '<span class="lines"></span><span class="spot"></span><span class="lit"></span>',
+  '6': '<span class="g6w"><span class="g6"></span></span>'
+};
+function bgHTML(k){
+  return `<div class="bgx bg-${k}" data-bg="${k}" role="img" aria-label="背景效果示範，點一下互動"><span class="fx">${BG_FX[k]}</span>
+    <span class="hc"><span class="badge">測試中</span><b>更快上線</b><small>幾分鐘做出一個精緻網站</small><i>開始使用</i></span></div>`;
+}
+function bgTap(el, ev){
+  const r = el.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top, k = el.dataset.bg;
+  if (k === '1') el.querySelectorAll('.blob').forEach(b => { b.style.left = (8 + Math.random() * 84) + '%'; b.style.top = (8 + Math.random() * 84) + '%'; });
+  if (k === '2' || k === '3') { el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
+  if (k === '4') {
+    const s = document.createElement('span'); s.className = 'rip4';
+    s.style.setProperty('--rx', x + 'px'); s.style.setProperty('--ry', y + 'px');
+    el.querySelector('.fx').appendChild(s); setTimeout(() => s.remove(), 1400);
+  }
+  if (k === '5' && el._spot) Object.assign(el._spot, { tx: x, ty: y, hold: performance.now() + 2500 });
+  if (k === '6') { const n = (+el.dataset.n || 0) + 1; el.dataset.n = n; el.style.setProperty('--turn', n * 75 + 'deg'); el.style.setProperty('--hue', n * 50 + 'deg'); }
+}
+/* 聚光燈：光源平時慢慢遊走，被點時快速滑過去並停一下 */
+function initBgs(){
+  const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.bgx[data-bg="5"]:not([data-on])').forEach(el => {
+    el.dataset.on = '1';
+    const st = el._spot = { x: 0, y: 0, tx: 0, ty: 0, hold: 0, next: 0 };
+    const step = t => {
+      if (!el.isConnected) return;
+      const w = el.clientWidth, h = el.clientHeight;
+      if (!st.x && !st.y) { st.x = st.tx = w * .3; st.y = st.ty = h * .4; }
+      if (!still && t > st.hold && t > st.next) { st.tx = w * (.12 + Math.random() * .76); st.ty = h * (.15 + Math.random() * .7); st.next = t + 2600; }
+      const f = t < st.hold ? .09 : .02;
+      st.x += (st.tx - st.x) * f; st.y += (st.ty - st.y) * f;
+      el.style.setProperty('--sx', st.x.toFixed(1) + 'px'); el.style.setProperty('--sy', st.y.toFixed(1) + 'px');
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}
 function previewHTML(e){
+  const bk = /^bg-0([1-6])$/.exec(e.preview || '');
+  if (bk) return bgHTML(bk[1]);
   if (e.preview === 'db-01') return `<div class="stage dash"><div class="dz">
       <div class="dr"><i class="on"></i><i></i><i></i><i></i><i></i></div>
       <div class="dg"><div class="g a"><small>總餘額</small><b>$595,241</b><em><u></u><u></u></em></div><div class="g t"><small>收入</small><b>$799</b></div><div class="g"><small>支出</small><b>$536</b></div>
@@ -222,7 +268,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll();
+  placeAll(); initBgs();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -249,6 +295,8 @@ $('main').addEventListener('click', ev => {
     tab.appendChild(rip); rip.addEventListener('animationend', () => rip.remove());
     return;
   }
+  const bgx = ev.target.closest('.bgx');
+  if (bgx) { bgTap(bgx, ev); return; }
   const mid = ev.target.closest('button.mid');
   if (mid) { mid.classList.remove('spin'); void mid.offsetWidth; mid.classList.add('spin'); return; }
   const b = ev.target.closest('[data-act]');
