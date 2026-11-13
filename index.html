@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#08090c">
+<meta name="theme-color" content="#0b0b0c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,8 +15,8 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Noto+Sans+TC:wght@400;500;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -35,21 +35,15 @@
     <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
   </defs>
 </svg>
-<div class="status"><b>UI 靈感庫</b><i id="sdot"></i><span id="sync" role="status"></span></div>
-<main class="feed" id="feed"></main>
-<div class="rail" id="rail" aria-hidden="true"></div>
-
-<nav class="dock" aria-label="靈感庫導覽">
-  <button type="button" id="d-all"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-list"/></svg>全部</button>
-  <button type="button" id="d-search"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>搜尋</button>
-  <button type="button" id="d-cat" class="fab" aria-label="分類"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-grid"/></svg></button>
-  <button type="button" id="d-star"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bookmark"/></svg>星號</button>
-  <button type="button" id="d-filter"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sliders"/></svg>篩選</button>
-</nav>
-
-<div class="sheet" id="sheet">
-  <div class="sheet-bg" id="sheet-bg"></div>
-  <div class="sheet-panel" id="sheet-panel"><div class="grab"></div><div id="sheet-body"></div></div>
+<header class="top">
+  <a id="brand" href="#">UI 靈感庫</a>
+  <button type="button" class="sync" id="cfg" aria-label="同步設定"><i id="sdot"></i><span id="sync" role="status"></span></button>
+  <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg><input id="q" type="search" placeholder="搜尋名稱、代號、標籤" autocomplete="off" aria-label="搜尋"></label>
+  <nav id="tnav" aria-label="狀態篩選"></nav>
+</header>
+<div class="shell">
+  <aside class="side" id="side" aria-label="分類"></aside>
+  <main id="main"></main>
 </div>
 
 <dialog id="dlg">
@@ -69,9 +63,9 @@
     </div>
     <datalist id="cat-list"></datalist>
     <div class="dlg-actions">
-      <button type="button" class="pill danger" id="del">刪除</button>
-      <button type="button" class="pill" id="cancel">取消</button>
-      <button type="submit" class="pill primary">儲存</button>
+      <button type="button" class="btn danger" id="del">刪除</button>
+      <button type="button" class="btn" id="cancel">取消</button>
+      <button type="submit" class="btn pri">儲存</button>
     </div>
   </form>
 </dialog>
@@ -89,12 +83,12 @@
     <p class="small">token 只存在這台裝置的瀏覽器，不會進 repo。</p>
     <p class="small" id="gh-msg"></p>
     <div class="dlg-actions">
-      <button type="button" class="pill" id="cfg-cancel">取消</button>
-      <button type="submit" class="pill primary">儲存並同步</button>
+      <button type="button" class="btn" id="cfg-cancel">取消</button>
+      <button type="submit" class="btn pri">儲存並同步</button>
     </div>
   </form>
 </dialog>
 <div id="toast" role="status"></div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
