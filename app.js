@@ -17,7 +17,7 @@ const PREVIEWS = {
   'bn-10':['home','explore','folder','bookmark','user'],
   'bn-11':['home','folder','grid','search','user']
 };
-const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320};
+const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44};
 const STATUSES = ['收藏','想用','已用'];
 
 const $ = id => document.getElementById(id);
@@ -90,7 +90,117 @@ function initBgs(){
     requestAnimationFrame(step);
   });
 }
+/* NT 系列：通知動效示範。看得到時每隔幾秒自動播一次，點一下立刻播 */
+function ntHTML(k){
+  return `<div class="ntx nt-${k}" data-nt="${k}" role="img" aria-label="通知動效示範，點一下播放">
+    <span class="nth"><b>收件匣</b><span class="inb">${icon('inbox')}</span></span>
+    <span class="ntl"><i></i><i></i><i></i></span>
+    <span class="fab">${icon('plus')}</span>
+    <span class="lay"></span></div>`;
+}
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const anim = (el, kf, o) => el.animate(kf, Object.assign({duration: 400, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards'}, o)).finished.catch(() => {});
+function mk(parent, cls, html = ''){ const s = document.createElement('span'); s.className = cls; s.innerHTML = html; parent.appendChild(s); return s; }
+const TOAST = (msg = '七點見？', who = '阿美', side = '剛剛') => `<span class="av">${who.slice(-1)}</span><span class="tt"><b>${who}</b><small>${msg}</small></span><em>${side}</em>`;
+const NT_PLAY = {
+  '1': async (el, lay) => {                                     /* 黏液滴落 */
+    const goo = mk(lay, 'goo'), lip = mk(goo, 'lip'), drop = mk(goo, 'drop');
+    anim(lip, [{width: '0em'}, {width: '4.5em'}], {duration: 320});
+    await anim(drop, [{top: '-1.6em', width: '1.4em', height: '1.4em'}, {top: '1.4em', width: '1.9em', height: '1.9em', offset: .6}, {top: '1.2em', width: '1.7em', height: '1.7em'}], {duration: 560, easing: 'cubic-bezier(.5,0,.3,1.3)'});
+    anim(lip, [{width: '4.5em'}, {width: '0em'}], {duration: 380});
+    await anim(drop, [{width: '1.7em', height: '1.7em'}, {width: '80%', height: '3em'}], {duration: 440, easing: 'cubic-bezier(.3,1.35,.5,1)'});
+    const t = mk(lay, 'tst bare', TOAST());
+    await anim(t, [{opacity: 0}, {opacity: 1}], {duration: 220});
+    await sleep(1300);
+    await anim(t, [{opacity: 1}, {opacity: 0}], {duration: 160});
+    anim(lip, [{width: '0em'}, {width: '4.5em'}], {duration: 300, delay: 260});
+    await anim(drop, [{width: '80%', height: '3em', top: '1.2em'}, {width: '1.7em', height: '1.7em', top: '1.2em', offset: .5}, {width: '1.2em', height: '1.2em', top: '-1.6em'}], {duration: 640, easing: 'cubic-bezier(.5,0,.5,1)'});
+    await anim(lip, [{width: '4.5em'}, {width: '0em'}], {duration: 260});
+  },
+  '2': async (el, lay) => {                                     /* 翻落 */
+    const t = mk(lay, 'tst top', TOAST());
+    await anim(t, [{transform: 'translateX(-50%) rotateX(-95deg)', opacity: 0}, {transform: 'translateX(-50%) rotateX(12deg)', opacity: 1, offset: .7}, {transform: 'translateX(-50%) rotateX(0deg)', opacity: 1}], {duration: 650, easing: 'cubic-bezier(.3,.7,.3,1)'});
+    await sleep(1400);
+    await anim(t, [{transform: 'translateX(-50%) rotateX(0deg)', opacity: 1}, {transform: 'translateX(-50%) rotateX(-95deg)', opacity: 0}], {duration: 420, easing: 'cubic-bezier(.6,0,.8,.4)'});
+  },
+  '3': async (el, lay) => {                                     /* 飛進收件匣 */
+    const t = mk(lay, 'tst mid', TOAST('在路上了', '阿力'));
+    await anim(t, [{transform: 'translate(-50%,-50%) scale(.85)', opacity: 0}, {transform: 'translate(-50%,-50%) scale(1)', opacity: 1}], {duration: 380});
+    await sleep(1000);
+    const cs = getComputedStyle(t);
+    t.querySelectorAll(':scope > *').forEach(c => anim(c, [{opacity: 1}, {opacity: 0}], {duration: 140}));
+    await anim(t, [{width: cs.width, height: cs.height}, {width: '1.3em', height: '1.3em'}], {duration: 380, easing: 'cubic-bezier(.5,0,.2,1)'});
+    const r0 = el.getBoundingClientRect(), a = t.getBoundingClientRect(), ib = el.querySelector('.inb').getBoundingClientRect();
+    const x0 = a.left - r0.left + a.width / 2, y0 = a.top - r0.top + a.height / 2, x1 = ib.left - r0.left + ib.width / 2, y1 = ib.top - r0.top + ib.height / 2;
+    const cx = x0 + (x1 - x0) * .62, cy = y0 + r0.height * .14;
+    const pts = [];
+    for (let i = 0; i <= 14; i++) { const u = i / 14, x = (1-u)*(1-u)*x0 + 2*(1-u)*u*cx + u*u*x1, y = (1-u)*(1-u)*y0 + 2*(1-u)*u*cy + u*u*y1;
+      pts.push({transform: `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,-50%) scale(${(1 - u * .55).toFixed(2)})`}); }
+    t.remove();
+    const dot = mk(lay, 'ndot'), dur = 640;
+    [3, 6, 9].forEach(i => setTimeout(() => { if (!lay.isConnected) return; const g = mk(lay, 'ghost'); anim(g, [{transform: pts[i].transform, opacity: .7}, {transform: pts[i].transform + ' scale(2)', opacity: 0}], {duration: 520}); }, i * dur / 14));
+    await anim(dot, pts, {duration: dur, easing: 'cubic-bezier(.45,0,.3,1)'});
+    dot.remove(); el.classList.add('badge');
+    await anim(el.querySelector('.inb'), [{transform: 'scale(1)'}, {transform: 'scale(1.25)'}, {transform: 'scale(1)'}], {duration: 340});
+    await sleep(1500); el.classList.remove('badge');
+  },
+  '4': async (el, lay) => {                                     /* 推擠浮動按鈕 */
+    const fab = el.querySelector('.fab'), t = mk(lay, 'tst snack', TOAST('七點見？', '阿美', '回覆'));
+    const h = t.offsetHeight + 8;
+    anim(fab, [{transform: 'translateY(0)'}, {transform: `translateY(-${h}px)`}], {duration: 440, easing: 'cubic-bezier(.3,1.3,.5,1)'});
+    await anim(t, [{transform: 'translateY(140%)'}, {transform: 'translateY(0)'}], {duration: 440, easing: 'cubic-bezier(.3,1.2,.5,1)'});
+    await sleep(1500);
+    anim(fab, [{transform: `translateY(-${h}px)`}, {transform: 'translateY(0)'}], {duration: 380, easing: 'cubic-bezier(.5,0,.2,1)'});
+    await anim(t, [{transform: 'translateY(0)'}, {transform: 'translateY(140%)'}], {duration: 380, easing: 'cubic-bezier(.5,0,.2,1)'});
+  },
+  '5': async (el, lay) => {                                     /* 聊天頭像 */
+    const head = mk(lay, 'chead', '<span class="avb">美</span><span class="cnt">1</span>'), bub = mk(lay, 'cbub', '七點見？');
+    const cnt = head.querySelector('.cnt'); cnt.style.transform = 'scale(0)';
+    await anim(head, [{transform: 'translateY(-50%) scale(0)'}, {transform: 'translateY(-50%) scale(1.15)', offset: .6}, {transform: 'translateY(-50%) scale(1)'}], {duration: 460});
+    anim(cnt, [{transform: 'scale(0)'}, {transform: 'scale(1.3)', offset: .6}, {transform: 'scale(1)'}], {duration: 360});
+    await sleep(180);
+    await anim(bub, [{clipPath: 'inset(0 0 0 100% round 999px)'}, {clipPath: 'inset(0 0 0 0 round 999px)'}], {duration: 440, easing: 'cubic-bezier(.2,.9,.3,1.1)'});
+    await sleep(1400);
+    await anim(bub, [{clipPath: 'inset(0 0 0 0 round 999px)'}, {clipPath: 'inset(0 0 0 100% round 999px)'}], {duration: 320, easing: 'cubic-bezier(.5,0,.2,1)'});
+    await anim(head, [{transform: 'translateY(-50%) scale(1)', opacity: 1}, {transform: 'translateY(-50%) scale(0)', opacity: 0}], {duration: 300, easing: 'cubic-bezier(.5,0,.8,.5)'});
+  },
+  '6': async (el, lay) => {                                     /* 合併計數 */
+    const ts = [0, 1, 2].map(i => { const t = mk(lay, 'tst stk', TOAST()); t.style.top = (4.6 + i * 3.6) + 'em'; t.style.zIndex = 3 - i; t.style.opacity = 0; return t; });
+    for (const t of ts) { anim(t, [{transform: 'translateX(-50%) translateY(-1.2em)', opacity: 0}, {transform: 'translateX(-50%) translateY(0)', opacity: 1}], {duration: 400, easing: 'cubic-bezier(.3,1.3,.5,1)'}); await sleep(250); }
+    await sleep(900);
+    ts.slice(1).forEach((t, i) => anim(t, [{transform: 'translateX(-50%) translateY(0) scale(1)', opacity: 1}, {transform: `translateX(-50%) translateY(-${3.6 * (i + 1)}em) scale(.94)`, opacity: 0}], {duration: 440, easing: 'cubic-bezier(.5,0,.2,1)'}));
+    await sleep(340);
+    ts[0].querySelector('small').textContent = '3 則新訊息';
+    const em = ts[0].querySelector('em'); em.textContent = '×3'; em.className = 'chip';
+    await anim(ts[0], [{transform: 'translateX(-50%) scale(1)'}, {transform: 'translateX(-50%) scale(1.06)'}, {transform: 'translateX(-50%) scale(1)'}], {duration: 340});
+    await sleep(1400);
+    await anim(ts[0], [{transform: 'translateX(-50%) translateY(0)', opacity: 1}, {transform: 'translateX(-50%) translateY(-1em)', opacity: 0}], {duration: 300});
+  }
+};
+async function playNt(el){
+  if (el._busy) return; el._busy = true;
+  const lay = el.querySelector('.lay'); lay.innerHTML = '';
+  try { await NT_PLAY[el.dataset.nt](el, lay); }
+  finally { lay.innerHTML = ''; el.querySelectorAll('.fab,.inb').forEach(x => x.getAnimations().forEach(a => a.cancel())); el.classList.remove('badge'); el._busy = false; }
+}
+let ntIO = null;
+function initNts(){
+  const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!ntIO && 'IntersectionObserver' in window) ntIO = new IntersectionObserver(es => es.forEach(en => { en.target._vis = en.isIntersecting; }), {threshold: .6});
+  document.querySelectorAll('.ntx:not([data-on])').forEach((el, i) => {
+    el.dataset.on = '1'; if (ntIO) ntIO.observe(el);
+    if (still) return;
+    const tick = () => {
+      if (!el.isConnected) { if (ntIO) ntIO.unobserve(el); return; }
+      if (el._vis && !document.hidden) playNt(el);
+      setTimeout(tick, 5600);
+    };
+    setTimeout(tick, 700 + i * 500);
+  });
+}
 function previewHTML(e){
+  const nk = /^nt-0([1-6])$/.exec(e.preview || '');
+  if (nk) return ntHTML(nk[1]);
   const bk = /^bg-0([1-6])$/.exec(e.preview || '');
   if (bk) return bgHTML(bk[1]);
   if (e.preview === 'db-01') return `<div class="stage dash"><div class="dz">
@@ -268,7 +378,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs();
+  placeAll(); initBgs(); initNts();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -297,6 +407,8 @@ $('main').addEventListener('click', ev => {
   }
   const bgx = ev.target.closest('.bgx');
   if (bgx) { bgTap(bgx, ev); return; }
+  const ntx = ev.target.closest('.ntx');
+  if (ntx) { playNt(ntx); return; }
   const mid = ev.target.closest('button.mid');
   if (mid) { mid.classList.remove('spin'); void mid.offsetWidth; mid.classList.add('spin'); return; }
   const b = ev.target.closest('[data-act]');

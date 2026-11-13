@@ -501,6 +501,137 @@
       "preview": "bg-06",
       "hue": 320,
       "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-01",
+      "code": "NT-01",
+      "category": "通知與提示",
+      "name": "黏液滴落",
+      "en": "Gooey Drop",
+      "desc": "一滴黑色液滴從頂端滴下，黏稠地拉長成通知膠囊，結束時再縮回去。",
+      "spec": "頂端邊緣有一小塊黑色「唇」，液滴從那裡滴落。\n黏稠感做法：液滴和唇放在同一層，套 SVG goo 濾鏡（feGaussianBlur 加 feColorMatrix 拉高 alpha 對比），兩者靠近時會像液體黏在一起。\n液滴落下約 0.5 秒（帶一點回彈），再橫向拉長成膠囊約 0.4 秒。\n膠囊成形後，頭像、名稱、訊息淡入。文字不要放進 goo 層，否則會糊掉。\n停留約 1.3 秒，文字先淡出，膠囊縮回圓滴並往上收回頂端。\n適合：個性化 App、聊天、想要有記憶點的提示。",
+      "tags": [
+        "黏液",
+        "變形",
+        "頂部通知",
+        "SVG 濾鏡"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-01",
+      "hue": 28,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-02",
+      "code": "NT-02",
+      "category": "通知與提示",
+      "name": "翻落",
+      "en": "Flip Down",
+      "desc": "通知像門板一樣從頂端翻下來，停一下再翻回去。",
+      "spec": "通知膠囊以上緣為軸（transform-origin: top），從 rotateX(-95deg) 翻下來。\n容器加 perspective 約 500px，才有立體翻轉感。\n進場約 0.65 秒，翻過頭到 12 度再回正，像門板落下。\n停留約 1.4 秒後往上翻回去，出場用加速曲線、約 0.4 秒。\n適合：一般系統通知、桌面網頁頂端提示。",
+      "tags": [
+        "3D 翻轉",
+        "頂部通知",
+        "perspective"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-02",
+      "hue": 32,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-03",
+      "code": "NT-03",
+      "category": "通知與提示",
+      "name": "飛進收件匣",
+      "en": "Fly to Inbox",
+      "desc": "通知縮成一顆小點，沿弧線飛進右上角的收件匣，收件匣亮起未讀點。",
+      "spec": "通知先在畫面中段淡入並微微放大。\n停留約 1 秒後，文字淡出、膠囊縮成一顆小黑點。\n黑點沿弧線（二次貝茲曲線）飛向右上角收件匣圖示，途中邊飛邊縮小，並留下幾圈淡出的殘影，約 0.6 秒。\n抵達後收件匣圖示彈一下，右上角出現未讀點。\n讓使用者知道通知去了哪裡，適合「稍後再看」類的訊息。",
+      "tags": [
+        "飛行路徑",
+        "收件匣",
+        "未讀點",
+        "殘影"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-03",
+      "hue": 36,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-04",
+      "code": "NT-04",
+      "category": "通知與提示",
+      "name": "推擠浮動按鈕",
+      "en": "Snackbar Push",
+      "desc": "底部提示條滑上來時，把右下角的浮動按鈕一起往上推，不會擋住它。",
+      "spec": "底部提示條從下方滑入（帶一點回彈），約 0.4 秒。\n右下角的浮動按鈕同時往上推，讓出提示條高度加 8px 間距。\n提示條右側放一個動作，例如「回覆」。\n停留約 1.5 秒，提示條往下滑出，浮動按鈕同步落回原位。\n適合：Material 風格的 App、有浮動新增按鈕的頁面。",
+      "tags": [
+        "snackbar",
+        "FAB",
+        "底部提示",
+        "推擠"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-04",
+      "hue": 40,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-05",
+      "code": "NT-05",
+      "category": "通知與提示",
+      "name": "聊天頭像",
+      "en": "Chat Head",
+      "desc": "右側彈出圓形頭像和未讀徽章，訊息氣泡從頭像後方往左展開。",
+      "spec": "右側彈出圓形頭像（縮放 0 → 1.15 → 1，約 0.45 秒），外圈有淡淡光環。\n頭像左上角接著彈出未讀數字徽章。\n訊息氣泡從頭像後方往左展開（clip-path 由右往左打開），約 0.4 秒。\n停留約 1.4 秒，氣泡收回頭像，頭像縮小消失。\n適合：聊天、客服、通訊軟體式的即時訊息。",
+      "tags": [
+        "頭像",
+        "氣泡",
+        "徽章",
+        "聊天"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-05",
+      "hue": 24,
+      "addedAt": "2026-11-14"
+    },
+    {
+      "id": "nt-06",
+      "code": "NT-06",
+      "category": "通知與提示",
+      "name": "合併計數",
+      "en": "Merge Counter",
+      "desc": "同一人的幾則通知先依序堆疊，再合併成一則並顯示 ×3。",
+      "spec": "同一人的多則通知依序往下堆疊進場，每則間隔約 0.25 秒。\n堆滿後，下面幾則往上滑進第一則並淡出，約 0.4 秒。\n第一則內容改成「3 則新訊息」，右側換成「×3」計數晶片，整則輕微彈一下。\n避免同一來源洗版，適合聊天群組、留言、按讚累積。",
+      "tags": [
+        "堆疊",
+        "合併",
+        "計數",
+        "防洗版"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Notifications お知らせ Part 4〉",
+      "preview": "nt-06",
+      "hue": 44,
+      "addedAt": "2026-11-14"
     }
   ]
 }
