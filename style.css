@@ -251,3 +251,61 @@ dialog h3{margin:0 0 14px;font-size:19px;font-weight:900}
 /* 每款的色相要在自己的區塊重新推導；預覽本身放在亮處展示，白底樣式才看得出是白底 */
 .sp,.row,.sheet .meta{--accent:hsl(var(--h) 90% 66%);--accent2:hsl(calc(var(--h) + 50) 85% 60%);--accent-ink:hsl(var(--h) 95% 78%)}
 .stage{--screen:#eef0f4;--nav:#fff;--nav-ink:#7b8494;--neu:#e8ebf0;--neu-dark:rgba(163,172,189,.65);--neu-light:rgba(255,255,255,.95);--ink:#171a21;--line:#e1e4ea;--accent:hsl(var(--h) 85% 55%);--accent2:hsl(calc(var(--h) + 50) 85% 58%);--accent-ink:hsl(var(--h) 80% 46%)}
+
+/* 分類面板 */
+.sheet h4{font-size:13px;font-weight:500;color:var(--muted);margin:18px 0 8px;display:flex;gap:8px;align-items:baseline}
+.sheet h4 small{font:500 11px var(--font-display);color:#646c7b}
+.catgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font-size:15px;font-weight:500;text-align:left;cursor:pointer;transition:transform .15s,background .2s}
+.cat:active{transform:scale(.96)}
+.cat b{font:500 12px var(--font-display);color:var(--muted)}
+.cat.none{color:#5d6573;background:none;border-style:dashed}
+.cat.all{width:100%}
+.cat[aria-pressed="true"]{background:#fff;border-color:#fff;color:#08090c}
+.cat[aria-pressed="true"] b{color:#08090c}
+.dock .fab svg{stroke-width:1.9}
+
+/* DB-01 毛玻璃儀表板的縮小示範 */
+.stage.dash{background:linear-gradient(135deg,#c9a27c,#8d6a4f 45%,#d9c2a3)}
+.stage.dash::before{content:"";position:absolute;inset:-20px;background:radial-gradient(circle at 18% 28%,#f3e0c6 0 16%,transparent 40%),radial-gradient(circle at 82% 72%,#5b3f2c 0 18%,transparent 45%),radial-gradient(circle at 62% 18%,#b5835a 0 14%,transparent 40%);filter:blur(14px)}
+.dz{position:absolute;inset:10px 10px 46px;border-radius:14px;background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.42);display:flex;gap:6px;padding:7px}
+.dr{flex:none;width:15px;border-radius:10px;background:rgba(255,255,255,.3);display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0}
+.dr i{width:6px;height:6px;border-radius:50%;background:rgba(40,30,24,.45)}
+.dr i.on{background:#fff;box-shadow:0 0 0 2.5px rgba(255,255,255,.45)}
+.dg{flex:1;display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;min-width:0;min-height:0}
+.g{border-radius:9px;background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.55);padding:5px 7px;display:flex;flex-direction:column;gap:1px;min-width:0;min-height:0;color:#2a211b;overflow:hidden}
+.g small{font-size:8px;line-height:1.3;opacity:.72;white-space:nowrap}
+.g b{font:800 12px/1.3 var(--font-display);white-space:nowrap}
+.g.t{background:linear-gradient(140deg,#2bb59a,#0f7f6e);color:#fff;border-color:transparent}
+.g.a em{display:flex;gap:4px;margin-top:auto}
+.g.a u{flex:1;height:8px;border-radius:6px;background:#1c1714}
+.g.a u+u{background:#fff}
+.g.c{grid-column:1/3}
+.bars{display:flex;align-items:flex-end;gap:5px;flex:1;min-height:0}
+.bars i{flex:1;height:calc(var(--v)*100%);background:#1c1714;border-radius:2px 2px 0 0;min-height:3px}
+.bars i:nth-child(2),.bars i:nth-child(4){background:#17957f}
+.g.w .ln{height:4px;border-radius:3px;background:rgba(40,30,24,.26);margin-top:4px;flex:none}
+.g.w .ln:nth-child(3){width:70%}
+.dg.swap{animation:swap .55s ease}
+@keyframes swap{0%{filter:blur(0);opacity:1}45%{filter:blur(8px);opacity:.3}100%{filter:blur(0);opacity:1}}
+.bn.bn-dash{left:50%;right:auto;bottom:9px;transform:translateX(-50%);width:max-content;padding:3px;border-radius:999px;background:rgba(255,255,255,.32);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.5);color:rgba(30,22,18,.72);align-items:center}
+.bn-dash .tab{flex:none;min-height:28px;padding:0 11px;font-size:11px;flex-direction:row;border-radius:999px}
+.bn-dash .tab[aria-current="true"]{color:#1c1714}
+.bn-dash .ind{display:block;top:3px;bottom:3px}
+.bn-dash .ind::after{height:100%;border-radius:999px;background:#fff}
+.bn-dash .mid{flex:none;min-height:28px;width:30px;padding:0}
+.bn-dash .mid .dot{width:24px;height:24px;border-radius:50%;background:#fff;color:#1c1714;display:grid;place-items:center}
+.bn-dash .mid .dot svg{width:13px;height:13px;stroke-width:2.4}
+
+/* 從主畫面開啟（iOS）：用螢幕實際高度排版，選單貼近底部，不留白 */
+html.standalone{min-height:calc(100% + env(safe-area-inset-top))}
+html.standalone,html.standalone body{height:var(--app-h)}
+html.standalone .feed,html.standalone .sp{height:var(--app-h)}
+html.standalone{--dock-gap:max(calc(var(--bot) - 10px),12px)}
+html.standalone .sp{padding-bottom:calc(var(--dock-gap) + 66px + 22px)}
+html.standalone .dock{bottom:auto;top:calc(var(--app-h) - 66px - var(--dock-gap))}
+html.standalone .sheet{bottom:auto;height:var(--app-h)}
+html.standalone .sheet-panel{max-height:calc(var(--app-h) * .82)}
+html.standalone #toast{bottom:auto;top:calc(var(--app-h) - 150px - var(--bot))}
+html.standalone .vit .stage,html.standalone .noprev{height:clamp(150px,calc(var(--app-h) * .27),250px)}
+.vit .stage.dash{border-top:8px solid var(--bezel);border-radius:22px}
