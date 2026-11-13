@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>UI 靈感庫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.4-5.5 7-5.5s6.4 1.9 7 5.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5h4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4.5 3.5V17H6a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20v-9M12 20V5M19 20v-6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  </defs>
+</svg>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">UI 靈感庫</div>
+    <h1>收藏的介面樣式，一頁管理</h1>
+    <p>有預覽的樣式可以直接點選操作。星號、狀態和備註會存在這台裝置；設定同步後，換裝置開也看得到。</p>
+    <div class="stats" id="stats"></div>
+    <div class="stats" id="sync" role="status"></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="row">
+      <input id="q" type="search" placeholder="搜尋名稱、代號、標籤" aria-label="搜尋">
+      <button type="button" class="btn primary" id="add">新增條目</button>
+      <button type="button" class="btn" id="cfg">同步設定</button>
+    </div>
+    <div class="row" id="cats"><span>類別</span></div>
+    <div class="row" id="stat"><span>狀態</span></div>
+    <div class="row"><span>主色</span><div class="swatches" id="swatches"></div></div>
+  </div>
+
+  <div class="msg" id="msg"></div>
+  <main class="grid" id="grid"></main>
+</div>
+
+<dialog id="dlg">
+  <form id="form" method="dialog">
+    <h3 id="dlg-title">新增條目</h3>
+    <div class="form">
+      <label>代號<input id="f-code" required placeholder="例如 CD-01"></label>
+      <label>類別<input id="f-category" required placeholder="例如 卡片" list="cat-list"></label>
+      <label>名稱<input id="f-name" required></label>
+      <label>英文名<input id="f-en"></label>
+      <label class="wide">一句話說明<input id="f-desc"></label>
+      <label class="wide">規格<textarea id="f-spec" placeholder="圓角、陰影、選中狀態、適用情境"></textarea></label>
+      <label>標籤（逗號分隔）<input id="f-tags"></label>
+      <label>狀態<select id="f-status"><option>收藏</option><option>想用</option><option>已用</option></select></label>
+      <label class="wide">來源<input id="f-source" placeholder="網址或作者"></label>
+      <label class="wide">備註<textarea id="f-note" placeholder="用在哪個專案、要注意什麼"></textarea></label>
+    </div>
+    <datalist id="cat-list"></datalist>
+    <div class="dlg-actions">
+      <button type="button" class="btn danger" id="del" hidden>刪除</button>
+      <button type="button" class="btn" id="cancel">取消</button>
+      <button type="submit" class="btn primary">儲存</button>
+    </div>
+  </form>
+</dialog>
+<dialog id="cfgdlg">
+  <form id="cfgform" method="dialog">
+    <h3>GitHub 同步設定</h3>
+    <div class="form">
+      <label>owner<input id="gh-owner" autocapitalize="off" autocomplete="off"></label>
+      <label>repo<input id="gh-repo" autocapitalize="off" autocomplete="off"></label>
+      <label>分支<input id="gh-branch" autocapitalize="off" autocomplete="off"></label>
+      <label>檔案路徑<input id="gh-path" autocapitalize="off" autocomplete="off"></label>
+      <label class="wide">token（fine-grained，只勾資料 repo 的 Contents 讀寫）<input id="gh-token" type="password" autocomplete="off"></label>
+    </div>
+    <p class="stats" style="margin:10px 0 0">token 只存在這台裝置的瀏覽器，不會進 repo。</p>
+    <p class="stats" id="gh-msg" style="margin:6px 0 0;color:#c0362c"></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn" id="cfg-cancel">取消</button>
+      <button type="submit" class="btn primary">儲存並同步</button>
+    </div>
+  </form>
+</dialog>
+<div id="toast" role="status"></div>
+
+<script src="app.js?v=1"></script>
+</body>
+</html>

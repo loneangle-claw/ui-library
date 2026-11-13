@@ -1,0 +1,219 @@
+{
+  "entries": [
+    {
+      "id": "bn-01",
+      "code": "BN-01",
+      "category": "底部選單",
+      "name": "極簡",
+      "en": "Minimal Clean",
+      "desc": "白底貼齊底部，選中項變主色並加小圓點。適合內容為主的工具型介面。",
+      "spec": "白底、貼齊螢幕底部，無陰影或僅頂部 1px 分隔線。\n選中項主色 + 文字下方 4px 小圓點。\n圖示 24px、文字 11–12px、列高 64–72px。",
+      "tags": [
+        "白底",
+        "圓點"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-01",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-02",
+      "code": "BN-02",
+      "category": "底部選單",
+      "name": "毛玻璃",
+      "en": "Glassmorphism",
+      "desc": "半透明膠囊加背景模糊，需要彩色或圖片背景才有效果。",
+      "spec": "懸浮膠囊，左右留 16px，圓角 24–28px。\n背景半透明白 15–25% + backdrop-filter blur 16–24px，1px 半透明白邊框。\n圖示文字白色，未選中約 70% 不透明，選中 100% + 小圓點。",
+      "tags": [
+        "懸浮",
+        "模糊",
+        "半透明"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-02",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-03",
+      "code": "BN-03",
+      "category": "底部選單",
+      "name": "懸浮分離",
+      "en": "Floating Detached",
+      "desc": "膠囊浮在背景上，四周留白加大陰影，中央動作微微上凸。",
+      "spec": "白色膠囊浮在深色或內容背景上，四周留 16px，圓角 28px 以上。\n陰影 y 8px、blur 24px、約 12% 黑。\n中央項可做成主色圓形按鈕並略微上凸。",
+      "tags": [
+        "懸浮",
+        "陰影",
+        "中央按鈕"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-03",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-04",
+      "code": "BN-04",
+      "category": "底部選單",
+      "name": "新擬態",
+      "en": "Neumorphism",
+      "desc": "選單與背景同色，靠雙向陰影浮起。對比偏低，只適合元素少的淺色介面。",
+      "spec": "選單與背景同色（淺灰白），圓角 24px。\n右下深色陰影 + 左上白色高光。\n選中僅變主色，不加底色。注意可讀性。",
+      "tags": [
+        "同色",
+        "雙向陰影"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-04",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-05",
+      "code": "BN-05",
+      "category": "底部選單",
+      "name": "膠囊高亮",
+      "en": "Pill Highlight",
+      "desc": "選中項後方有淡色圓角底塊，切換時滑動過去。辨識度最高。",
+      "spec": "白底貼底。\n選中項後方為主色 10–15% 不透明的圓角方塊，圓角 16px，內距 8×12px。\n切換時底色方塊滑動到新位置。",
+      "tags": [
+        "白底",
+        "底塊",
+        "滑動"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-05",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-06",
+      "code": "BN-06",
+      "category": "底部選單",
+      "name": "中央 FAB",
+      "en": "Center FAB",
+      "desc": "中央放大的圓形主要動作鈕，適合有一個核心動作的 App。",
+      "spec": "4 個導覽項分列兩側，中央 56px 主色圓形按鈕，上凸約一半高度。\n選單列在按鈕處做凹口或留白。\n選中項用深色填色圖示。",
+      "tags": [
+        "FAB",
+        "主要動作"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-06",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-07",
+      "code": "BN-07",
+      "category": "底部選單",
+      "name": "漸層",
+      "en": "Gradient Bold",
+      "desc": "整條選單為主色到次色的漸層，圖示全白。品牌感強，內容區要素淨。",
+      "spec": "主色到次色的橫向漸層。\n圖示文字全白，未選中約 75% 不透明。\n選中項加半透明白色圓形底。",
+      "tags": [
+        "漸層",
+        "品牌感"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-07",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-08",
+      "code": "BN-08",
+      "category": "底部選單",
+      "name": "線條圖示",
+      "en": "Outline Icons",
+      "desc": "細線圖示加短底線，比極簡款更輕，適合閱讀或專業工具。",
+      "spec": "白底、全線條圖示，線寬 1.5px。\n選中項主色 + 文字下方 2px 短底線，寬約 16px。",
+      "tags": [
+        "白底",
+        "細線",
+        "底線"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-08",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-09",
+      "code": "BN-09",
+      "category": "底部選單",
+      "name": "頂部指示條",
+      "en": "Tab with Indicator",
+      "desc": "選中項上緣有一條主色橫條，切換時水平滑動。結構最清楚。",
+      "spec": "白底貼底。\n選中項正上方有 2–3px 主色橫條，寬度等於該項。\n切換時橫條水平滑動。",
+      "tags": [
+        "白底",
+        "指示條",
+        "滑動"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-09",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-10",
+      "code": "BN-10",
+      "category": "底部選單",
+      "name": "弧形色塊",
+      "en": "Curved Background",
+      "desc": "整塊主色大圓角色塊，選中項加粗並帶小橫線。",
+      "spec": "整塊主色背景，四角圓角 28px 以上，略微懸浮。\n圖示文字白色，選中項字重加粗 + 下方小橫線。",
+      "tags": [
+        "色塊",
+        "大圓角"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-10",
+      "addedAt": "2026-11-13"
+    },
+    {
+      "id": "bn-11",
+      "code": "BN-11",
+      "category": "底部選單",
+      "name": "Dock 風格",
+      "en": "iOS Inspired",
+      "desc": "寬版半透明懸浮膠囊，項目間距寬，貼近 iOS 原生感。",
+      "spec": "寬版懸浮膠囊，淺色半透明背景 + 輕微模糊與細陰影，圓角 32px。\n選中項主色填色圖示。\n下方保留系統 Home 指示條空間。",
+      "tags": [
+        "懸浮",
+        "半透明",
+        "iOS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "網路分享截圖",
+      "preview": "bn-11",
+      "addedAt": "2026-11-13"
+    }
+  ]
+}
