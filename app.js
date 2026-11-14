@@ -205,7 +205,43 @@ function moHTML(){
     `<div class="mrow"><span class="mlab">後緣 ω₀ ${b}<b>${l}</b></span><nav class="bn bn-mo" data-back="${b}" aria-label="後緣 ω₀ ${b}"><span class="ind"></span>${tabs}</nav></div>`).join('')}
     <span class="mnote">前緣都是 ω₀ 19、ζ 0.55</span></div>`;
 }
+/* GL：元件詞典，一個名詞一個示範。點一下切換 .off（出現／關閉、選中／未選）。 */
+const GLP = (top = '') => `<span class="gpg"${top ? ` style="top:${top}"` : ''}><i></i><i></i><i></i><i></i><i></i><i></i></span>`;
+const GLB = t => `<span class="gbar">${t}</span>`;
+const GROW = (inner, n = 3) => Array.from({length: n}, (_, i) => `<span class="grow">${inner(i)}</span>`).join('');
+const GL = {
+  modal: GLB('任務清單') + GLP() + '<span class="gdim gfx"></span><span class="gmod gcard gfx"><b>新增任務</b><span class="gin">任務名稱</span><span class="gin">期限</span><span class="gbtns"><u>取消</u><u class="p">儲存</u></span></span>',
+  tooltip: GLB('報表') + GLP() + '<span class="gctr"><span class="gtip gfx">匯出成 Excel 檔</span><u>匯出 ⓘ</u></span>',
+  popover: GLB('驗收單') + GLP('7em') + '<span class="ganc"><u>篩選 ▾</u><span class="gpop gcard gfx"><b>狀態</b><span class="gr2"><s class="gck y"></s>待驗收</span><span class="gr2"><s class="gck"></s>已結案</span><span class="gbtns"><u class="p">套用</u></span></span></span>',
+  dropdown: GLB('請購單 PR-1103') + GLP('7em') + '<span class="ganc"><u>⋯ 更多</u><span class="gmenu gcard gfx"><i class="h">編輯</i><i>複製</i><i>匯出 PDF</i><hr><i class="d">刪除</i></span></span>',
+  select: GLB('編輯任務') + GLP('9em') + '<span class="ganc"><small>狀態</small><span class="gin gsel">進行中<s>▾</s></span><span class="gmenu gcard gfx"><i>待處理</i><i class="h">進行中<s>✓</s></i><i>已完成</i></span></span>',
+  combobox: GLB('選擇物料') + GLP('9em') + '<span class="ganc"><small>物料名稱</small><span class="gin gtyp">疫苗<s class="car"></s></span><span class="gmenu gcard gfx"><i class="h"><span><mark>疫苗</mark>冷藏櫃</span></i><i><span><mark>疫苗</mark>瓶蓋 20mm</span></i><i><span>動物用<mark>疫苗</mark>標籤</span></i></span></span>',
+  drawer: GLB('☰　首頁') + GLP() + '<span class="gdim gfx"></span><span class="gdrw gfx"><b>選單</b><i class="h">首頁</i><i>請購</i><i>驗收</i><i>庫存</i><i>報表</i></span>',
+  sheet: GLB('相簿') + GLP() + '<span class="gdim gfx"></span><span class="gsht gfx"><s class="ggr"></s><b>分享到</b><i>📋　複製連結</i><i>✉️　寄送 Email</i><i>💾　存到裝置</i></span>',
+  tabs: GLB('批次 B-2611') + '<span class="gtabs"><i>概況</i><i>明細</i><i>紀錄</i><s class="gind"></s></span><span class="gp gp1"><span class="gstat"><span><small>數量</small><b>1,200</b></span><span><small>良率</small><b>98%</b></span></span></span><span class="gp gp2">' + GROW(() => '<i></i><i class="w"></i>', 3) + '</span>',
+  pagination: GLB('採購單') + '<span class="glst">' + GROW(() => '<i></i><i class="w"></i>', 4) + '</span><span class="gpgn"><u>‹</u><u class="c1">1</u><u class="c2">2</u><u>3</u><u class="e">…</u><u>9</u><u>›</u></span>',
+  accordion: GLB('常見問題') + '<span class="gacc"><span class="gai"><span class="gah">怎麼新增請購？<s class="chev">▾</s></span><span class="gab"><i></i><i></i><i class="w"></i></span></span><span class="gai"><span class="gah">誰可以簽核？<s class="chev x">▾</s></span></span><span class="gai"><span class="gah">忘記密碼<s class="chev x">▾</s></span></span></span>',
+  breadcrumbs: GLB('請購單') + '<span class="gbc"><span>首頁</span><s>›</s><span>請購</span><s>›</s><b>PR-1103</b></span>' + GLP('6.6em'),
+  toast: GLB('編輯任務') + GLP() + '<span class="gtst gfx"><s>✓</s>已儲存<u class="lk">復原</u></span>',
+  alert: GLB('驗收') + '<span class="galt gfx"><s>⚠</s><span>有 3 筆驗收逾期未處理</span><s class="x">✕</s></span>' + GLP('7.8em'),
+  badge: GLB('首頁') + `<span class="gbdg"><span class="gico">${icon('bell')}<s class="gnum gfx">3</s><small>通知</small></span><span class="gico">${icon('chat')}<s class="gnum gfx">12</s><small>訊息</small></span><span class="gico">${icon('inbox')}<s class="gdot gfx"></s><small>收件匣</small></span></span>`,
+  tag: GLB('請購清單') + '<span class="glst">' + '<span class="grow"><b>PR-1103</b><s class="gtag t1">急件</s><s class="gtag t2 gfx">待驗收</s></span><span class="grow"><b>PR-1098</b><s class="gtag t2">待驗收</s></span><span class="grow"><b>PR-1090</b><s class="gtag t3">已結案</s></span>' + '</span>',
+  switch: GLB('通知設定') + '<span class="glst">' + ['Email 通知', '推播通知', '每週摘要'].map((t, i) => `<span class="grow"><b>${t}</b><s class="gsw${i === 2 ? ' n' : ''}${i === 0 ? ' t' : ''}"></s></span>`).join('') + '</span>',
+  checkbox: GLB('篩選條件') + '<span class="glst">' + ['急件', '待驗收', '已結案'].map((t, i) => `<span class="grow"><s class="gck${i === 0 ? ' y' : ''}${i === 1 ? ' t' : ''}"></s><b>${t}</b></span>`).join('') + '</span>',
+  radio: GLB('報表頻率') + '<span class="glst">' + ['每日', '每週', '每月'].map((t, i) => `<span class="grow"><s class="grd${i === 1 ? ' y' : ''}${i === 2 ? ' t' : ''}"></s><b>${t}</b></span>`).join('') + '</span>',
+  slider: GLB('冷藏櫃設定') + '<span class="gsld"><span class="gsr"><b>目標溫度</b><span><s class="v1">5 °C</s><s class="v2">3 °C</s></span></span><span class="gtr"><s class="gfl"></s><s class="gth"></s></span><span class="gsr mm"><small>2 °C</small><small>8 °C</small></span></span>',
+  spinner: GLB('庫存') + '<span class="gspn"><s class="grg"></s><small>載入中…</small></span>',
+  progress: GLB('上傳附件') + '<span class="gsld gprg"><span class="gsr"><b>驗收單.pdf</b><span><s class="v1">72%</s><s class="v2">完成 ✓</s></span></span><span class="gtr"><s class="gfl"></s></span><small>剩餘約 4 秒</small></span>',
+  skeleton: GLB('動態') + '<span class="glst gsk gfx">' + GROW(() => '<s class="av"></s><span class="tx"><i></i><i class="w"></i></span>', 3) + '</span><span class="glst grl">' + [['王', '王小明送出請購單'], ['林', '林組長已簽核'], ['陳', '陳專員完成驗收']].map(([a, t]) => `<span class="grow"><s class="av">${a}</s><span class="tx"><b>${t}</b><small>2 分鐘前</small></span></span>`).join('') + '</span>',
+  empty: GLB('請購單') + `<span class="gemp"><span class="gbox">${icon('inbox')}</span><b>還沒有任何請購單</b><small>建立第一張後會出現在這裡</small><u class="p">＋ 新增請購</u></span>`,
+  stepper: GLB('新增請購') + '<span class="gstp">' + [['1', '填寫', 'd'], ['2', '簽核', 'c'], ['3', '完成', '']].map(([n, t, c]) => `<span class="gst ${c}"><s class="gcr">${n}</s>${t}</span>`).join('') + '</span><span class="gform gcard"><span class="gin">簽核人</span><span class="gbtns"><u>上一步</u><u class="p">下一步</u></span></span>'
+};
+function glHTML(k, name){
+  return `<div class="glx gl-${k}" data-gl="${k}" role="img" aria-label="${esc(name)}示範，點一下切換">${GL[k]}</div>`;
+}
 function previewHTML(e){
+  const gk = /^gl-([a-z]+)$/.exec(e.preview || '');
+  if (gk && GL[gk[1]]) return glHTML(gk[1], e.name);
   if (e.preview === 'mo-01') return moHTML();
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
   if (nk) return ntHTML(nk[1]);
@@ -456,6 +492,8 @@ $('main').addEventListener('click', ev => {
   }
   const bgx = ev.target.closest('.bgx');
   if (bgx) { bgTap(bgx, ev); return; }
+  const glx = ev.target.closest('.glx');
+  if (glx) { glx.classList.toggle('off'); return; }
   const ntx = ev.target.closest('.ntx');
   if (ntx) { playNt(ntx); return; }
   const mid = ev.target.closest('button.mid');
