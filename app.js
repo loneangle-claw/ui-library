@@ -17,7 +17,7 @@ const PREVIEWS = {
   'bn-10':['home','explore','folder','bookmark','user'],
   'bn-11':['home','folder','grid','search','user']
 };
-const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44};
+const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44,'mo-01':232};
 const STATUSES = ['收藏','想用','已用'];
 
 const $ = id => document.getElementById(id);
@@ -198,7 +198,15 @@ function initNts(){
     setTimeout(tick, 700 + i * 500);
   });
 }
+/* MO-01：同一個切換，三種後緣彈簧並排比較 */
+function moHTML(){
+  const tabs = ['home', 'search', 'bookmark', 'user'].map((k, i) => `<button type="button" class="tab"${i ? '' : ' aria-current="true"'} aria-label="${L[k]}">${icon(k)}</button>`).join('');
+  return `<div class="mox">${[['19', '不伸縮'], ['11', '有彈性'], ['6', '軟 Q']].map(([b, l]) =>
+    `<div class="mrow"><span class="mlab">後緣 ω₀ ${b}<b>${l}</b></span><nav class="bn bn-mo" data-back="${b}" aria-label="後緣 ω₀ ${b}"><span class="ind"></span>${tabs}</nav></div>`).join('')}
+    <span class="mnote">前緣都是 ω₀ 19、ζ 0.55</span></div>`;
+}
 function previewHTML(e){
+  if (e.preview === 'mo-01') return moHTML();
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
   if (nk) return ntHTML(nk[1]);
   const bk = /^bg-0([1-6])$/.exec(e.preview || '');
@@ -217,10 +225,6 @@ function previewHTML(e){
     t++; return `<button type="button" class="tab"${t === 0 ? ' aria-current="true"' : ''}>${icon(k)}<span>${L[k]}</span></button>`;
   }).join('');
   return `<div class="stage s-${n}"><nav class="bn bn-${n}" aria-label="${esc(e.name)}示範"><span class="ind"></span>${btns}</nav></div>`;
-}
-function place(nav){
-  const cur = nav.querySelector('[aria-current="true"]'); if (!cur) return;
-  nav.style.setProperty('--x', cur.offsetLeft + 'px'); nav.style.setProperty('--w', cur.offsetWidth + 'px');
 }
 /* 儲存：localStorage 為本機快取，GitHub Contents API 為跨裝置同步（token 只存本機）。
    條目與分類表由 Claude 寫進資料 repo；裝置端只改星號、狀態、備註，所以同步時一律「合併」而不是整份覆寫。 */
@@ -294,11 +298,52 @@ async function pull(){
   } catch (e) { setSync('同步失敗：' + e.message); }
 }
 
-function place(nav){
-  const cur = nav.querySelector('[aria-current="true"]'); if (!cur) return;
-  nav.style.setProperty('--x', cur.offsetLeft + 'px'); nav.style.setProperty('--w', cur.offsetWidth + 'px');
+/* 選中指示器：左右兩個邊緣各用一顆彈簧追目標（MO-01 雙彈簧伸縮膠囊）。
+   前緣（移動方向那一側）ω₀ 19、ζ 0.55；後緣 ω₀ 11、ζ 0.72，所以移動途中會拉長，到站再縮回。
+   nav 上的 data-back 可覆寫後緣的 ω₀（19 不伸縮、11 有彈性、6 軟 Q）。 */
+const SPRING_FRONT = {w: 19, z: .55}, SPRING_BACK = {w: 11, z: .72};
+const stillMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setInd(nav, L, R, base){
+  const b = nav._bounds;                      /* 超過頭的部分壓在兩端的牆上，不跑出選單外 */
+  if (b) { L = Math.min(Math.max(L, b[0]), b[1]); R = Math.min(Math.max(R, b[0]), b[1]); }
+  nav.style.setProperty('--x', L.toFixed(2) + 'px');
+  nav.style.setProperty('--w', Math.max(0, R - L).toFixed(2) + 'px');
+  nav.style.setProperty('--st', Math.max(-base * .35, (R - L) - base).toFixed(2) + 'px');
 }
-const placeAll = () => document.querySelectorAll('.bn').forEach(place);
+function place(nav, instant){
+  const cur = nav.querySelector('[aria-current="true"]'); if (!cur) return;
+  const tL = cur.offsetLeft, tR = tL + cur.offsetWidth, tabs = nav.querySelectorAll('.tab');
+  nav._bounds = [tabs[0].offsetLeft, tabs[tabs.length - 1].offsetLeft + tabs[tabs.length - 1].offsetWidth];
+  let s = nav._spr;
+  if (instant || !s || stillMotion()) {
+    if (s) s.stop = true;
+    nav._spr = {L: tL, R: tR, vL: 0, vR: 0, tL, tR, run: false};
+    setInd(nav, tL, tR, tR - tL); return;
+  }
+  s.dir = Math.sign((tL + tR) - (s.L + s.R)) || s.dir || 1;
+  s.tL = tL; s.tR = tR; s.stop = false;
+  if (s.run) return;
+  s.run = true;
+  const back = nav.dataset.back ? {w: +nav.dataset.back, z: SPRING_BACK.z} : SPRING_BACK;
+  let last = performance.now();
+  const step = (now, x, v, t, k) => {           /* 半隱式歐拉，固定 1/240 秒小步 */
+    const a = -k.w * k.w * (x - t) - 2 * k.z * k.w * v;
+    v += a / 240; return [x + v / 240, v];
+  };
+  const tick = now => {
+    if (s.stop || !nav.isConnected) { s.run = false; return; }
+    let n = Math.min(24, Math.round((now - last) * .24)); last = now;
+    const fL = s.dir < 0 ? SPRING_FRONT : back, fR = s.dir > 0 ? SPRING_FRONT : back;
+    while (n-- > 0) { [s.L, s.vL] = step(now, s.L, s.vL, s.tL, fL); [s.R, s.vR] = step(now, s.R, s.vR, s.tR, fR); }
+    setInd(nav, s.L, s.R, s.tR - s.tL);
+    if (Math.abs(s.L - s.tL) < .3 && Math.abs(s.R - s.tR) < .3 && Math.abs(s.vL) < 4 && Math.abs(s.vR) < 4) {
+      s.L = s.tL; s.R = s.tR; s.vL = s.vR = 0; setInd(nav, s.L, s.R, s.tR - s.tL); s.run = false; return;
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const placeAll = () => document.querySelectorAll('.bn').forEach(nav => place(nav, true));
 
 /* 篩選列與分類欄 */
 function renderNav(){
@@ -396,9 +441,13 @@ window.addEventListener('hashchange', () => {
 $('main').addEventListener('click', ev => {
   const tab = ev.target.closest('button.tab');
   if (tab) {
-    const nav = tab.closest('.bn');
-    nav.querySelectorAll('.tab').forEach(t => { t.removeAttribute('aria-current'); t.classList.remove('pop'); });
-    tab.setAttribute('aria-current', 'true'); void tab.offsetWidth; tab.classList.add('pop'); place(nav);
+    const nav = tab.closest('.bn'), idx = [...nav.querySelectorAll('.tab')].indexOf(tab);
+    const mox = nav.closest('.mox');                          /* MO-01 的三列一起切換，方便比較手感 */
+    (mox ? [...mox.querySelectorAll('.bn')] : [nav]).forEach(n => {
+      const tabs = [...n.querySelectorAll('.tab')], to = tabs[idx] || tab;
+      tabs.forEach(t => { t.removeAttribute('aria-current'); t.classList.remove('pop'); });
+      to.setAttribute('aria-current', 'true'); void to.offsetWidth; to.classList.add('pop'); place(n);
+    });
     if (nav.classList.contains('bn-dash')) { const dz = nav.parentElement.querySelector('.dg'); dz.classList.remove('swap'); void dz.offsetWidth; dz.classList.add('swap'); }
     const r = tab.getBoundingClientRect(), rip = document.createElement('span');
     rip.className = 'rip'; rip.style.setProperty('--rx', (ev.clientX - r.left) + 'px'); rip.style.setProperty('--ry', (ev.clientY - r.top) + 'px');

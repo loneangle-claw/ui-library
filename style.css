@@ -407,4 +407,29 @@ footer{padding:28px var(--gut) calc(var(--bot) + 36px)}
 .chead .cnt{position:absolute;left:-.35em;top:-.45em;width:1.6em;height:1.6em;border-radius:50%;background:#141414;color:#fff;border:2px solid #ebe9e6;font-size:.8em;display:grid;place-items:center;font-weight:700}
 .cbub{right:5.9em;top:50%;transform:translateY(-50%);height:2.9em;display:flex;align-items:center;padding:0 1.4em;border-radius:999px;background:#141414;color:#fff;font-weight:500;clip-path:inset(0 0 0 100% round 999px);white-space:nowrap}
 
+/* 選中指示器改由彈簧驅動（見 app.js 的 place）：關掉 CSS 過渡；固定大小的圓點、短線、圓底把伸長量 --st 加到寬度上 */
+.bn .ind{transition:none}
+.bn-01 .ind::after,.bn-02 .ind::after{width:max(2px,calc(4px + var(--st,0px)));border-radius:999px}
+.bn-07 .ind::after{width:max(24px,calc(36px + var(--st,0px)));border-radius:999px}
+.bn-08 .ind::after{width:max(8px,calc(16px + var(--st,0px)))}
+.bn-10 .ind::after{width:max(8px,calc(14px + var(--st,0px)))}
+
+/* MO-01 雙彈簧伸縮膠囊：三列並排比較 */
+.mox{display:flex;flex-direction:column;justify-content:center;gap:10px;height:184px;padding:12px 14px;border-radius:10px;background:#14121f;color:#e9e8f3;-webkit-user-select:none;user-select:none}
+.pv.big .mox{height:auto;min-height:clamp(260px,36vh,340px);max-width:460px;margin:0 auto;gap:16px;padding:24px 26px;border-radius:14px;box-shadow:0 26px 50px -14px rgba(40,50,140,.5)}
+.mrow{display:flex;flex-direction:column;gap:4px}
+.mlab{display:flex;justify-content:space-between;font:500 10px var(--font-mono);letter-spacing:.04em;color:#8c8aa3}
+.mlab b{font-weight:500;color:#aab4ff}
+.bn.bn-mo{position:relative;left:auto;right:auto;bottom:auto;padding:4px;border-radius:999px;background:#211f30;color:#8c8aa3}
+.bn-mo .tab{min-height:30px;border-radius:999px}
+.bn-mo .tab svg{width:17px;height:17px}
+.bn-mo .tab[aria-current="true"]{color:#fff}
+.bn-mo .tab[aria-current="true"] svg{fill:none}
+.bn-mo .ind{display:block;top:4px;bottom:4px}
+.bn-mo .ind::after{height:100%;border-radius:999px;background:linear-gradient(90deg,#4a5cff,#5c8dff);box-shadow:0 0 14px rgba(80,110,255,.55)}
+.mnote{font:500 10px var(--font-mono);color:#6d6b84;text-align:right}
+.pv.big .mlab,.pv.big .mnote{font-size:12px}
+.pv.big .bn-mo .tab{min-height:40px}
+.pv.big .bn-mo .tab svg{width:21px;height:21px}
+
 @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}

@@ -14,7 +14,8 @@
 - Token：Fine-grained PAT，只勾 private repo `ui-library-data`、Contents: Read and write；只存在裝置瀏覽器，不進 repo
 - 沒設定同步時，第一次開啟會載入 `entries.default.json` 的基本條目
 - 資料格式：`{ "categories": [ { group, name, code } ], "entries": [ { id, code, category, name, en, desc, spec, tags[], status, star, note, source, preview, hue, addedAt } ] }`
-- `preview` 對應 `app.js` 的 `PREVIEWS`（bn-01 到 bn-11）或 `previewHTML` 裡的專屬示範（db-01；bg-01 到 bg-06 的背景效果由 `bgHTML`／`bgTap` 處理；nt-01 到 nt-06 的通知動效由 `ntHTML`／`NT_PLAY` 處理，看得到時自動播）；新的可操作預覽要同時加 `PREVIEWS` 與 `style.css` 的樣式
+- `preview` 對應 `app.js` 的 `PREVIEWS`（bn-01 到 bn-11）或 `previewHTML` 裡的專屬示範（db-01；bg-01 到 bg-06 的背景效果由 `bgHTML`／`bgTap` 處理；nt-01 到 nt-06 的通知動效由 `ntHTML`／`NT_PLAY` 處理，看得到時自動播；mo-01 由 `moHTML` 處理）
+- 所有底部選單示範的選中指示器都由 `place()` 的雙彈簧驅動（前緣 ω₀ 19／ζ 0.55、後緣 ω₀ 11／ζ 0.72，即 MO-01），不用 CSS transition；新的可操作預覽要同時加 `PREVIEWS` 與 `style.css` 的樣式
 - 改版時 `index.html` 的 `?v=N` 要一起改號
 - 版面用 `100dvh`，不用 `vh`；表單一律 16px（iOS 聚焦不放大）
 
