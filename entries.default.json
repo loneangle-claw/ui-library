@@ -654,6 +654,137 @@
       "preview": "mo-01",
       "hue": 232,
       "addedAt": "2026-11-14"
+    },
+    {
+      "id": "sw-01",
+      "code": "SW-01",
+      "category": "開關與選擇",
+      "name": "錨點彈出",
+      "en": "Anchor Pop",
+      "desc": "選單從按鈕那一側彈出，選完縮回按鈕。",
+      "spec": "選單的 transform-origin 設在靠近按鈕的那一側邊緣，從 scale(0.3) 加透明開始彈出。\n彈出用帶回彈的曲線，約 0.38 秒，略微放大到 1.04 再回到 1。\n選中後選單往同一個錨點縮回，約 0.22 秒，比打開快。\n目前選中的項目有淡色底和勾選記號；按鈕上的箭頭跟著開合轉向。\n適合：檢視方式、排序、篩選這類小型下拉選單。元件本身的定義見 GL-05 下拉選單。",
+      "tags": [
+        "彈出",
+        "回彈",
+        "錨點",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-01",
+      "hue": 262,
+      "addedAt": "2026-11-15"
+    },
+    {
+      "id": "sw-02",
+      "code": "SW-02",
+      "category": "開關與選擇",
+      "name": "翻面",
+      "en": "Turn Over",
+      "desc": "內容卡翻到背面就是選單，選完再翻回來，內容已換成新的檢視方式。",
+      "spec": "內容卡和選單是同一張卡的正反面，佔同一塊位置。\n打開：卡片繞 Y 軸轉到 90 度（約 0.18 秒，加速），換成選單面，再從 -90 度轉回 0 度（約 0.26 秒，減速帶一點回彈）。\n父層加 perspective 約 700px，才看得出立體翻轉。\n選中後用同樣方式翻回內容面，內容已換成新的檢視方式。\n適合：空間有限、選單和內容要共用同一塊位置的卡片。",
+      "tags": [
+        "3D 翻轉",
+        "正反面",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-02",
+      "hue": 268,
+      "addedAt": "2026-11-15"
+    },
+    {
+      "id": "sw-03",
+      "code": "SW-03",
+      "category": "開關與選擇",
+      "name": "發牌",
+      "en": "Card Deal",
+      "desc": "選項像發牌一樣從按鈕一張張飛出，選中的那張飛回按鈕，其他往下掉。",
+      "spec": "選項從按鈕中心的位置飛到各自的列，每張間隔約 0.07 秒，起飛時帶 -14 度旋轉、縮小一半，到位時回正。\n選中後，被選的那張飛回按鈕並縮小消失，約 0.42 秒。\n其他幾張同時往下掉並淡出，約 0.26 秒，彼此錯開一點。\n按鈕上的圖示和文字在動畫結束時換成新選項。\n適合：想要有趣味感的切換、遊戲化介面。",
+      "tags": [
+        "發牌",
+        "飛行",
+        "交錯",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-03",
+      "hue": 330,
+      "addedAt": "2026-11-15"
+    },
+    {
+      "id": "sw-04",
+      "code": "SW-04",
+      "category": "開關與選擇",
+      "name": "滾筒",
+      "en": "Drum Roll",
+      "desc": "選項像貼在 3D 滾筒上一列列滾進來，選完繼續往下滾走。",
+      "spec": "每列從 rotateX(90deg) 加往上位移的位置滾進來，由上到下依序，間隔約 0.06 秒，約 0.38 秒。\n選單容器加 perspective 約 400px，每列的 transform-origin 放在列中央。\n選中後各列朝同一方向繼續滾走（rotateX(-90deg) 並往下淡出），間隔約 0.05 秒。\n適合：數值、時間、分類這類「一格一格選」的選單。",
+      "tags": [
+        "3D",
+        "滾筒",
+        "交錯",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-04",
+      "hue": 200,
+      "addedAt": "2026-11-15"
+    },
+    {
+      "id": "sw-05",
+      "code": "SW-05",
+      "category": "開關與選擇",
+      "name": "描邊",
+      "en": "Outline Trace",
+      "desc": "先有一道紫到青的描邊畫出選單外框，選項再一列列從左刷出來。",
+      "spec": "用 SVG 矩形描出選單外框：pathLength 設 100、stroke-dasharray 100，stroke-dashoffset 從 100 跑到 0，約 0.46 秒。\n描邊用紫到青的線性漸層，線寬約 1.6px。\n外框描完後，底色淡入，選項一列列由左往右刷出（clip-path inset 右側由 100% 收到 0），間隔約 0.06 秒。\n收起時反過來：選項往右刷掉，底色淡出，外框沿同方向擦掉（dashoffset 0 到 -100）。\n適合：科技感、深色主題、想強調「正在建立」的介面。",
+      "tags": [
+        "描邊",
+        "SVG",
+        "刷入",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-05",
+      "hue": 285,
+      "addedAt": "2026-11-15"
+    },
+    {
+      "id": "sw-06",
+      "code": "SW-06",
+      "category": "開關與選擇",
+      "name": "方塊拼裝",
+      "en": "Tile Build",
+      "desc": "選單面板由小方塊沿對角線一波波拼出來，選完再碎成方塊消失。",
+      "spec": "把面板切成小方塊格（例如 6×5），方塊沿對角線依序放大出現，每格延遲約 0.028 秒，各自略微過衝到 1.08。\n方塊拼滿後，選項由上而下淡入並往上移一點。\n選中後選項先淡出，方塊再以同樣的波浪順序縮小並旋轉 30 度消失，露出底下換好的新內容。\n方塊顏色和選單底色相同，拼好時看起來就是一整塊面板。\n適合：遊戲、創意工具、想讓切換有「重建」感的地方。",
+      "tags": [
+        "方塊",
+        "波浪",
+        "拼裝",
+        "下拉選單"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Instagram Reel：ui_motion_prompts〈Menu メニュー Part 3〉",
+      "preview": "sw-06",
+      "hue": 42,
+      "addedAt": "2026-11-15"
     }
   ]
 }

@@ -432,6 +432,48 @@ footer{padding:28px var(--gut) calc(var(--bot) + 36px)}
 .pv.big .bn-mo .tab{min-height:40px}
 .pv.big .bn-mo .tab svg{width:21px;height:21px}
 
+/* SW 系列：「檢視方式」下拉選單的六種展開動畫 */
+.swx{position:relative;display:grid;grid-template-columns:1fr 1.3fr;gap:1.1em;align-items:center;height:18.4em;padding:1.4em 1.3em;font-size:10px;border-radius:10px;background:#16121f;color:#e9e7f2;font-family:var(--font-body);line-height:1.3;cursor:pointer;-webkit-user-select:none;user-select:none;perspective:700px}
+.pv.big .swx{font-size:15px;max-width:560px;margin:0 auto;border-radius:14px;box-shadow:0 26px 50px -14px rgba(70,40,160,.55)}
+.sleft{display:flex;flex-direction:column;gap:.6em;min-width:0}
+.slab,.scnt{font:500 .8em var(--font-mono);letter-spacing:.08em;color:#8a85a0}
+.sbtn{display:flex;align-items:center;gap:.6em;padding:.75em .8em;border-radius:.8em;border:1px solid rgba(150,120,255,.65);background:#1e1930;box-shadow:0 0 1.2em rgba(130,90,255,.25)}
+.sbtn b{flex:1;font-size:1.15em;font-weight:700;white-space:nowrap}
+.chev{font-size:1.3em;line-height:1;color:#a39dbb;transition:transform .3s}
+.swx.open .chev{transform:rotate(180deg)}
+.swx .ico{flex:none;width:1.9em;height:1.9em;border-radius:.45em;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.swx .ico svg{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.c-grid{--c:#8b7bff}.c-list{--c:#5ec8ff}.c-board{--c:#ff5a8a}.c-cal{--c:#f2b84b}
+.spanel{position:relative;height:15.6em;border-radius:.9em;background:#1f1a2c}
+.sview{position:absolute;inset:0;padding:1em;display:flex;flex-direction:column;gap:.7em;overflow:hidden;border-radius:inherit}
+.vh{font-size:.85em;font-weight:700;color:#cfcae0}
+.vg,.vb{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:.5em}
+.vg i{border-radius:.4em;background:rgba(139,123,255,.35)}
+.vl{display:flex;flex-direction:column;gap:1em;padding-top:.4em}
+.vl i{position:relative;height:.45em;margin-left:1.1em;border-radius:1em;background:rgba(94,200,255,.4)}
+.vl i::before{content:"";position:absolute;left:-1.1em;top:-.05em;width:.55em;height:.55em;border-radius:50%;background:#5ec8ff}
+.vl i:nth-child(2){width:70%}.vl i:nth-child(4){width:55%}
+.vb>span{display:flex;flex-direction:column;gap:.4em;padding:.35em;border-radius:.4em;background:rgba(255,255,255,.04)}
+.vb i{height:1.5em;border-radius:.3em;background:rgba(255,90,138,.45)}
+.vb i:first-child{height:.35em;background:#ff5a8a}
+.vc{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:.3em}
+.vc i{border-radius:.2em;background:rgba(255,255,255,.06)}
+.vc i:nth-child(12){background:#f2b84b}
+.smenu{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;gap:.25em;padding:.5em;border-radius:inherit;background:#252036;box-shadow:0 .6em 1.6em rgba(0,0,0,.35);visibility:hidden;perspective:400px}
+.swx.open .smenu{visibility:visible}
+.si{flex:1;display:flex;align-items:center;gap:.6em;padding:0 .7em;border-radius:.55em}
+.si b{flex:1;font-weight:500}
+.si em{font-style:normal;color:#b6a8ff;opacity:0}
+.si.cur{background:rgba(139,123,255,.2)}
+.si.cur em{opacity:1}
+.sw-1 .smenu{transform-origin:0 50%}
+.sw-5 .smenu,.sw-6 .smenu{background:transparent;box-shadow:none}
+.sol{position:absolute;inset:0;z-index:3;pointer-events:none}
+.sol svg{display:block;width:100%;height:100%;overflow:visible}
+.sol rect{fill:none;stroke-width:1.6;stroke-dasharray:100;stroke-dashoffset:100}
+.stile{position:absolute;inset:0;z-index:1;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(5,1fr);border-radius:inherit;overflow:hidden}
+.stile i{background:#2b2442;box-shadow:inset 0 0 0 .5px rgba(190,170,255,.07);transform:scale(0)}
+
 @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
 
 /* GL 元件詞典：一個名詞一個示範（點一下切換 .off） */

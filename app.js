@@ -17,7 +17,7 @@ const PREVIEWS = {
   'bn-10':['home','explore','folder','bookmark','user'],
   'bn-11':['home','folder','grid','search','user']
 };
-const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44,'mo-01':232};
+const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44,'mo-01':232,'sw-01':262,'sw-02':268,'sw-03':330,'sw-04':200,'sw-05':285,'sw-06':42};
 const STATUSES = ['收藏','想用','已用'];
 
 const $ = id => document.getElementById(id);
@@ -281,7 +281,142 @@ Object.assign(GL, {
   video: '<span class="gvid"><span class="gscr"><s class="gpl v1">▶</s></span><span class="gctl"><s class="v1">▶</s><s class="v2">❚❚</s><s class="gtr"><s class="gfl"></s></s><small>0:42 / 3:10</small><s>⛶</s></span></span><span class="gcap"><b>無塵衣穿著示範</b><small>教育訓練・3 分 10 秒</small></span>',
   visuallyhidden: GLB('請購清單') + '<span class="gbx"><span class="grow"><b>PR-1103 冷藏櫃</b><u class="gib">🗑</u></span><span class="grow"><b>PR-1098 瓶蓋</b><u class="gib2">🗑</u></span><span class="gsr2 gfo"><small>螢幕閱讀器念的是（畫面上看不到）：</small><b>「刪除 PR-1103 冷藏櫃」</b></span></span>'
 });
+/* SW 系列：同一個「檢視方式」下拉選單的六種展開動畫。看得到時自動示範，點一下自己操作 */
+const SW_OPTS = [['grid', '格狀'], ['list', '清單'], ['board', '看板'], ['cal', '日曆']];
+const swBtn = i => { const [k, l] = SW_OPTS[i]; return `<span class="ico c-${k}">${icon(k)}</span><b>${l}</b><span class="chev">›</span>`; };
+function swView(k){
+  const c = n => '<i></i>'.repeat(n);
+  const body = k === 'grid' ? `<span class="vg">${c(6)}</span>` : k === 'list' ? `<span class="vl">${c(4)}</span>`
+    : k === 'board' ? `<span class="vb"><span>${c(3)}</span><span>${c(2)}</span><span>${c(3)}</span></span>` : `<span class="vc">${c(28)}</span>`;
+  return `<span class="vh">專案</span>${body}`;
+}
+function swHTML(n){
+  return `<div class="swx sw-${n}" data-sw="${n}" data-sel="2" role="group" aria-label="下拉選單動效示範，點一下打開">
+    <span class="sleft"><span class="slab">檢視方式</span><span class="sbtn">${swBtn(2)}</span><span class="scnt">12 個專案</span></span>
+    <span class="spanel"><span class="sview">${swView('board')}</span><span class="smenu"></span></span></div>`;
+}
+const swRows = m => [...m.querySelectorAll('.si')];
+const SW_FX = {
+  '1': {                                                     /* 錨點彈出 */
+    open: async (el, m, p, show) => { show(); await anim(m, [{transform: 'scale(.3,.25)', opacity: 0}, {transform: 'scale(1.04)', opacity: 1, offset: .7}, {transform: 'scale(1)', opacity: 1}], {duration: 380}); },
+    close: async (el, m) => { await anim(m, [{transform: 'scale(1)', opacity: 1}, {transform: 'scale(.3,.25)', opacity: 0}], {duration: 220, easing: 'cubic-bezier(.5,0,.8,.4)'}); }
+  },
+  '2': {                                                     /* 翻面 */
+    open: async (el, m, p, show) => {
+      await anim(p, [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(90deg)'}], {duration: 180, easing: 'cubic-bezier(.5,0,1,.6)'});
+      show(); await anim(p, [{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0deg)'}], {duration: 260, easing: 'cubic-bezier(.2,.8,.3,1.2)'});
+    },
+    close: async (el, m, p, hide) => {
+      await anim(p, [{transform: 'rotateY(0deg)'}, {transform: 'rotateY(-90deg)'}], {duration: 180, easing: 'cubic-bezier(.5,0,1,.6)'});
+      hide(); await anim(p, [{transform: 'rotateY(90deg)'}, {transform: 'rotateY(0deg)'}], {duration: 260, easing: 'cubic-bezier(.2,.8,.3,1.2)'});
+    }
+  },
+  '3': {                                                     /* 發牌 */
+    open: async (el, m, p, show) => {
+      show(); const b = el.querySelector('.sbtn').getBoundingClientRect();
+      anim(m, [{opacity: 0}, {opacity: 1}], {duration: 200});
+      await Promise.all(swRows(m).map((r, i) => { const q = r.getBoundingClientRect();
+        const dx = b.left + b.width / 2 - (q.left + q.width / 2), dy = b.top + b.height / 2 - (q.top + q.height / 2);
+        return anim(r, [{transform: `translate(${dx}px,${dy}px) rotate(-14deg) scale(.55)`, opacity: 0}, {transform: 'translate(0,0) rotate(2deg) scale(1)', opacity: 1, offset: .8}, {transform: 'none', opacity: 1}], {duration: 440, delay: i * 70, fill: 'both'}); }));
+    },
+    close: async (el, m, p, hide, pick) => {
+      const b = el.querySelector('.sbtn').getBoundingClientRect();
+      await Promise.all(swRows(m).map((r, i) => { const q = r.getBoundingClientRect();
+        if (i !== pick) return anim(r, [{transform: 'none', opacity: 1}, {transform: 'translateY(1.6em) rotate(7deg)', opacity: 0}], {duration: 260, delay: i * 35, easing: 'cubic-bezier(.5,0,.8,.4)'});
+        const dx = b.left + b.width / 2 - (q.left + q.width / 2), dy = b.top + b.height / 2 - (q.top + q.height / 2);
+        return anim(r, [{transform: 'none', opacity: 1}, {transform: `translate(${dx}px,${dy}px) rotate(-10deg) scale(.5)`, opacity: 0}], {duration: 420, easing: 'cubic-bezier(.5,0,.3,1)'}); }));
+      await anim(m, [{opacity: 1}, {opacity: 0}], {duration: 120});
+    }
+  },
+  '4': {                                                     /* 滾筒 */
+    open: async (el, m, p, show) => {
+      show(); anim(m, [{opacity: 0}, {opacity: 1}], {duration: 180});
+      await Promise.all(swRows(m).map((r, i) => anim(r, [{transform: 'rotateX(90deg) translateY(-40%)', opacity: 0}, {transform: 'rotateX(0deg) translateY(0)', opacity: 1}], {duration: 380, delay: i * 60, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'both'})));
+    },
+    close: async (el, m) => {
+      await Promise.all(swRows(m).map((r, i) => anim(r, [{transform: 'rotateX(0deg) translateY(0)', opacity: 1}, {transform: 'rotateX(-90deg) translateY(40%)', opacity: 0}], {duration: 300, delay: i * 50, easing: 'cubic-bezier(.5,0,.8,.4)'})));
+      await anim(m, [{opacity: 1}, {opacity: 0}], {duration: 120});
+    }
+  },
+  '5': {                                                     /* 描邊 */
+    open: async (el, m, p, show) => {
+      const w = p.clientWidth, h = p.clientHeight, rx = parseFloat(getComputedStyle(p).borderTopLeftRadius) || 8, id = 'sg' + Math.random().toString(36).slice(2, 8);
+      const ol = mk(p, 'sol', `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a26bff"/><stop offset="1" stop-color="#3fd5ff"/></linearGradient></defs><rect x="1" y="1" width="${w - 2}" height="${h - 2}" rx="${rx}" pathLength="100" stroke="url(#${id})"/></svg>`);
+      show();
+      swRows(m).forEach(r => { r.style.clipPath = 'inset(0 100% 0 0)'; });
+      await anim(ol.querySelector('rect'), [{strokeDashoffset: 100}, {strokeDashoffset: 0}], {duration: 460, easing: 'cubic-bezier(.4,0,.2,1)'});
+      anim(m, [{backgroundColor: 'rgba(37,32,54,0)'}, {backgroundColor: 'rgba(37,32,54,1)'}], {duration: 220});
+      await Promise.all(swRows(m).map((r, i) => anim(r, [{clipPath: 'inset(0 100% 0 0)'}, {clipPath: 'inset(0 0% 0 0)'}], {duration: 260, delay: i * 60, fill: 'both'})));
+    },
+    close: async (el, m, p) => {
+      await Promise.all(swRows(m).reverse().map((r, i) => anim(r, [{clipPath: 'inset(0 0% 0 0)'}, {clipPath: 'inset(0 0 0 100%)'}], {duration: 200, delay: i * 40})));
+      anim(m, [{backgroundColor: 'rgba(37,32,54,1)'}, {backgroundColor: 'rgba(37,32,54,0)'}], {duration: 180});
+      const rect = p.querySelector('.sol rect');
+      if (rect) await anim(rect, [{strokeDashoffset: 0}, {strokeDashoffset: -100}], {duration: 380, easing: 'cubic-bezier(.4,0,.2,1)'});
+    }
+  },
+  '6': {                                                     /* 方塊拼裝 */
+    open: async (el, m, p, show) => {
+      const tl = mk(p, 'stile', '<i></i>'.repeat(30)), cells = [...tl.children];
+      swRows(m).forEach(r => { r.style.opacity = 0; }); show();
+      await Promise.all(cells.map((c, k) => anim(c, [{transform: 'scale(0)'}, {transform: 'scale(1.08)', offset: .7}, {transform: 'scale(1)'}], {duration: 260, delay: ((k % 6) + Math.floor(k / 6)) * 28, fill: 'both'})));
+      await Promise.all(swRows(m).map((r, i) => anim(r, [{opacity: 0, transform: 'translateY(.4em)'}, {opacity: 1, transform: 'none'}], {duration: 220, delay: i * 40, fill: 'both'})));
+    },
+    close: async (el, m, p, hide) => {
+      await anim(m, [{opacity: 1}, {opacity: 0}], {duration: 140}); hide();
+      const tl = p.querySelector('.stile'); if (!tl) return;
+      await Promise.all([...tl.children].map((c, k) => anim(c, [{transform: 'scale(1)'}, {transform: 'scale(0) rotate(30deg)'}], {duration: 240, delay: ((k % 6) + Math.floor(k / 6)) * 26, easing: 'cubic-bezier(.5,0,.8,.4)'})));
+    }
+  }
+};
+async function swOpen(el){
+  if (el._busy || el.classList.contains('open')) return; el._busy = true;
+  const m = el.querySelector('.smenu'), p = el.querySelector('.spanel'), sel = +el.dataset.sel;
+  m.innerHTML = SW_OPTS.map(([k, l], i) => `<span class="si${i === sel ? ' cur' : ''}" data-i="${i}"><span class="ico c-${k}">${icon(k)}</span><b>${l}</b><em>✓</em></span>`).join('');
+  try { await SW_FX[el.dataset.sw].open(el, m, p, () => el.classList.add('open')); el.classList.add('open'); }
+  finally { el._busy = false; }
+}
+async function swPick(el, i){
+  if (el._busy || !el.classList.contains('open')) return; el._busy = true;
+  const m = el.querySelector('.smenu'), p = el.querySelector('.spanel');
+  swRows(m).forEach((r, j) => r.classList.toggle('cur', j === i));
+  await sleep(150);
+  el.dataset.sel = i; el.querySelector('.sview').innerHTML = swView(SW_OPTS[i][0]);
+  try { await SW_FX[el.dataset.sw].close(el, m, p, () => el.classList.remove('open'), i); }
+  finally {
+    el.classList.remove('open'); el.querySelector('.sbtn').innerHTML = swBtn(i);
+    m.getAnimations({subtree: true}).forEach(a => a.cancel()); p.getAnimations().forEach(a => a.cancel());
+    p.querySelectorAll('.sol,.stile').forEach(x => x.remove()); m.innerHTML = ''; el._busy = false;
+  }
+}
+function swTap(el, ev){
+  el._user = performance.now();
+  if (!el.classList.contains('open')) { swOpen(el); return; }
+  const r = ev.target.closest('.si');
+  swPick(el, r ? +r.dataset.i : +el.dataset.sel);
+}
+let swIO = null;
+function initSws(){
+  const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!swIO && 'IntersectionObserver' in window) swIO = new IntersectionObserver(es => es.forEach(en => { en.target._vis = en.isIntersecting; }), {threshold: .6});
+  document.querySelectorAll('.swx:not([data-on])').forEach((el, i) => {
+    el.dataset.on = '1'; if (swIO) swIO.observe(el);
+    if (still) return;
+    const idle = () => performance.now() - (el._user || -1e9) > 9000;
+    const tick = async () => {
+      if (!el.isConnected) { if (swIO) swIO.unobserve(el); return; }
+      if (el._vis && !document.hidden && !el._busy && !el.classList.contains('open') && idle()) {
+        await swOpen(el); await sleep(1300);
+        if (el.isConnected && idle()) await swPick(el, (+el.dataset.sel + 1) % 4);
+      }
+      setTimeout(tick, 3800);
+    };
+    setTimeout(tick, 900 + i * 600);
+  });
+}
 function previewHTML(e){
+  const sk = /^sw-0([1-6])$/.exec(e.preview || '');
+  if (sk) return swHTML(sk[1]);
   const gk = /^gl-([a-z]+)$/.exec(e.preview || '');
   if (gk && GL[gk[1]]) return glHTML(gk[1], e.name);
   if (e.preview === 'mo-01') return moHTML();
@@ -501,7 +636,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs(); initNts();
+  placeAll(); initBgs(); initNts(); initSws();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -538,6 +673,8 @@ $('main').addEventListener('click', ev => {
   if (glx) { glx.classList.toggle('off'); return; }
   const ntx = ev.target.closest('.ntx');
   if (ntx) { playNt(ntx); return; }
+  const swx = ev.target.closest('.swx');
+  if (swx) { swTap(swx, ev); return; }
   const mid = ev.target.closest('button.mid');
   if (mid) { mid.classList.remove('spin'); void mid.offsetWidth; mid.classList.add('spin'); return; }
   const b = ev.target.closest('[data-act]');
