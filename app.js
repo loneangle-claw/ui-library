@@ -17,7 +17,7 @@ const PREVIEWS = {
   'bn-10':['home','explore','folder','bookmark','user'],
   'bn-11':['home','folder','grid','search','user']
 };
-const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44,'mo-01':232,'sw-01':262,'sw-02':268,'sw-03':330,'sw-04':200,'sw-05':285,'sw-06':42};
+const HUES = {'bn-01':215,'bn-02':262,'bn-03':232,'bn-04':196,'bn-05':205,'bn-06':28,'bn-07':318,'bn-08':172,'bn-09':245,'bn-10':150,'bn-11':285,'db-01':28,'bg-01':270,'bg-02':165,'bg-03':300,'bg-04':205,'bg-05':255,'bg-06':320,'nt-01':28,'nt-02':32,'nt-03':36,'nt-04':40,'nt-05':24,'nt-06':44,'mo-01':232,'sw-01':262,'sw-02':268,'sw-03':330,'sw-04':200,'sw-05':285,'sw-06':42,'cd-01':268};
 const STATUSES = ['收藏','想用','已用'];
 
 const $ = id => document.getElementById(id);
@@ -420,6 +420,7 @@ function previewHTML(e){
   const gk = /^gl-([a-z]+)$/.exec(e.preview || '');
   if (gk && GL[gk[1]]) return glHTML(gk[1], e.name);
   if (e.preview === 'mo-01') return moHTML();
+  if (e.preview === 'cd-01') return cdHTML();
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
   if (nk) return ntHTML(nk[1]);
   const bk = /^bg-0([1-6])$/.exec(e.preview || '');
@@ -636,7 +637,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs(); initNts(); initSws();
+  placeAll(); initBgs(); initNts(); initSws(); initCds();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -652,6 +653,7 @@ window.addEventListener('hashchange', () => {
 
 /* 事件：內容區 */
 $('main').addEventListener('click', ev => {
+  if (ev.target.closest('.cdx')) return;                     /* CD-01 自己處理點擊（cd01.js） */
   const tab = ev.target.closest('button.tab');
   if (tab) {
     const nav = tab.closest('.bn'), idx = [...nav.querySelectorAll('.tab')].indexOf(tab);
