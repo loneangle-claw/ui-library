@@ -890,3 +890,15 @@ footer{padding:28px var(--gut) calc(var(--bot) + 36px)}
 .cdw.pop .cdvp{z-index:3}
 .cdw.pop .cdctl,.cdw.pop .cdwh,.cdw.pop .cdvp .cdlab{opacity:.22}
 @media (prefers-reduced-motion:reduce){.cdc,.cdsegi,.cdvp canvas{transition-duration:.01s}.cdcurve path,.cdrip{animation:none}}
+
+/* MO-02 到 MO-15：單一小動效示範（cd01.js 的 cdFxHTML） */
+.cfx{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:linear-gradient(180deg,hsl(var(--ch) 65% 97%),hsl(var(--ch) 65% 92%));cursor:pointer;-webkit-user-select:none;user-select:none;box-shadow:0 14px 30px -14px hsl(var(--ch) 50% 30% / .45)}
+.pv.big .cfx{max-width:560px;margin:0 auto;border-radius:14px;box-shadow:0 26px 50px -14px hsl(var(--ch) 60% 30% / .5)}
+.cfx canvas{position:absolute;left:6%;top:12%;width:88%;height:62%;display:block}
+.cfxl{position:absolute;left:10px;top:9px;display:flex;align-items:center;gap:5px;font:500 9px/1 var(--font-mono);letter-spacing:.12em;color:hsl(var(--ch) 40% 38%)}
+.cfxl i{width:5px;height:5px;border-radius:50%;background:hsl(var(--ch) 72% 52%)}
+.cfxl em{font-style:normal}
+.cfx.tap .cfxl{animation:cfxTap .4s cubic-bezier(.3,1.5,.5,1)}
+@keyframes cfxTap{from{transform:scale(1.25)}to{transform:none}}
+.cfxc{position:absolute;left:10px;right:10px;bottom:9px;padding:6px 9px;border-radius:6px;background:#1b1b1f;color:#e9e7ee;font:400 9px/1 var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pv.big .cfxl{font-size:11px;left:16px;top:14px}.pv.big .cfxc{font-size:11px;left:16px;right:16px;bottom:14px;padding:8px 12px}

@@ -481,3 +481,36 @@ function cdFit(el){
   st.k = w / CD_W; el.style.setProperty('--k', st.k);
   el.querySelectorAll('canvas').forEach(cv => cdSizeCanvas(cv, st.k));
 }
+
+/* MO-02 到 MO-15：把上面 14 個小動效各自拆成一款獨立示範（同一套 CD_DRAW）。
+   點一下在三段細緻度之間切換；看得到時才畫。 */
+const CFX_LEVELS = [.5, .9, .15], CFX_LABEL = ['標準', '密', '疏'];
+function cdFxHTML(i){
+  const it = CD_ITEMS[i]; if (!it) return '';
+  return `<div class="cfx" data-fx="${i}" style="--ch:${it[3]}" role="group" aria-label="${it[0]}示範，點一下切換疏密"><canvas aria-hidden="true"></canvas><span class="cfxl"><i></i><em>標準</em></span><span class="cfxc">${it[4]}</span></div>`;
+}
+let cfxIO = null, cfxRO = null, cfxRun = false;
+function initCdFx(){
+  const still = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  if (!cfxIO && 'IntersectionObserver' in window) cfxIO = new IntersectionObserver(es => es.forEach(en => { en.target._vis = en.isIntersecting; }), {threshold: .2});
+  if (!cfxRO && 'ResizeObserver' in window) cfxRO = new ResizeObserver(es => es.forEach(en => { const cv = en.target.querySelector('canvas'); if (cv) { cdSizeCanvas(cv, 1); if (still) cfxDraw(en.target, 2.2); } }));
+  document.querySelectorAll('.cfx:not([data-on])').forEach(el => {
+    el.dataset.on = '1'; el._vis = !cfxIO; el._lv = 0; el._S = {}; el._T = cdRnd(+el.dataset.fx) * 3;
+    if (cfxIO) cfxIO.observe(el); if (cfxRO) cfxRO.observe(el);
+    cdSizeCanvas(el.querySelector('canvas'), 1); cfxDraw(el, 2.2);
+    el.addEventListener('click', ev => {
+      ev.stopPropagation(); el._lv = (el._lv + 1) % 3; el._S = {}; el.querySelector('.cfxl em').textContent = CFX_LABEL[el._lv];
+      el.classList.remove('tap'); void el.offsetWidth; el.classList.add('tap'); if (still) cfxDraw(el, 2.2);
+    });
+  });
+  if (cfxRun || still) return; cfxRun = true;
+  let last = performance.now();
+  const loop = now => {
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    const all = document.querySelectorAll('.cfx[data-on]');
+    if (!document.hidden) all.forEach(el => { if (el._vis) { el._T += dt; cfxDraw(el, el._T); } });
+    if (all.length) requestAnimationFrame(loop); else cfxRun = false;
+  };
+  requestAnimationFrame(loop);
+}
+function cfxDraw(el, t){ cdPaint(el.querySelector('canvas'), +el.dataset.fx, t, el._S, {detail: CFX_LEVELS[el._lv], speed: 1, tone: 0}); }

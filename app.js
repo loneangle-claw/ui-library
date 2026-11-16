@@ -421,6 +421,8 @@ function previewHTML(e){
   if (gk && GL[gk[1]]) return glHTML(gk[1], e.name);
   if (e.preview === 'mo-01') return moHTML();
   if (e.preview === 'cd-01') return cdHTML();
+  const fk = /^mo-(\d\d)$/.exec(e.preview || '');
+  if (fk && +fk[1] >= 2 && +fk[1] <= 15) return cdFxHTML(+fk[1] - 2);
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
   if (nk) return ntHTML(nk[1]);
   const bk = /^bg-0([1-6])$/.exec(e.preview || '');
@@ -637,7 +639,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs(); initNts(); initSws(); initCds();
+  placeAll(); initBgs(); initNts(); initSws(); initCds(); initCdFx();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
