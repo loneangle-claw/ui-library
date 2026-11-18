@@ -902,3 +902,90 @@ footer{padding:28px var(--gut) calc(var(--bot) + 36px)}
 @keyframes cfxTap{from{transform:scale(1.25)}to{transform:none}}
 .cfxc{position:absolute;left:10px;right:10px;bottom:9px;padding:6px 9px;border-radius:6px;background:#1b1b1f;color:#e9e7ee;font:400 9px/1 var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pv.big .cfxl{font-size:11px;left:16px;top:14px}.pv.big .cfxc{font-size:11px;left:16px;right:16px;bottom:14px;padding:8px 12px}
+
+/* IC 系列：會動的小圖示（純 SVG＋CSS） */
+.icx{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:.6em;height:18.4em;padding:.8em;font-size:10px;border-radius:10px;background:#100e18;-webkit-user-select:none;user-select:none}
+.pv.big .icx{font-size:15px;max-width:560px;margin:0 auto;border-radius:14px;box-shadow:0 26px 50px -14px rgba(60,40,140,.5)}
+.ict{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em;border-radius:.9em;background:#18152a;border:1px solid rgba(255,255,255,.06);cursor:pointer;min-width:0;transition:transform .15s,border-color .3s}
+.ict:active{transform:scale(.94)}
+.ict.hit{border-color:rgba(79,209,197,.45)}
+.ict small{font:500 .82em var(--font-mono);color:#8f8aac;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ict em{font-style:normal;font-size:.82em;color:#5f5b78;margin-top:-.3em}
+.ict svg{width:3em;height:3em;fill:none;stroke:#cfcae6;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.ict svg.tl{stroke:#4fd1c5}
+.ict svg .f{fill:currentColor;stroke:none;color:#cfcae6}
+.ict svg.tl .f,.ict svg .t{color:#4fd1c5;stroke:#4fd1c5}
+.ict svg .dim{opacity:.25}
+.ict svg *{transform-box:view-box;transform-origin:12px 12px}
+@keyframes ic-spin{to{transform:rotate(360deg)}}
+.k-spin{animation:ic-spin 1.1s linear infinite}.k-spin.slow{animation-duration:4s}
+.k-scan{animation:ic-scan 1.8s ease-in-out infinite alternate}
+@keyframes ic-scan{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
+.k-b1,.k-b2{animation:ic-fade 1.6s ease-in-out infinite}.k-b2{animation-delay:.3s}
+@keyframes ic-fade{0%,100%{opacity:.15}40%{opacity:1}}
+.k-lvl{transform-origin:12px 12.4px;animation:ic-lvl .9s ease-in-out infinite alternate}
+@keyframes ic-lvl{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.k-w1,.k-w2,.k-w3{animation:ic-fade 1.8s ease-in-out infinite}.k-w2{animation-delay:.25s}.k-w3{animation-delay:.5s}
+.k-blip{animation:ic-blip 2.2s ease-out infinite}
+@keyframes ic-blip{0%,20%{opacity:0}30%{opacity:1}100%{opacity:0}}
+.k-dot{transform-origin:19px 5px;animation:ic-pulse 1.4s ease-in-out infinite}
+@keyframes ic-pulse{0%,100%{transform:scale(.7)}50%{transform:scale(1.15)}}
+.k-tw{animation:ic-tw 2.4s ease-in-out infinite}
+@keyframes ic-tw{0%,100%{transform:rotate(0) scale(.85)}50%{transform:rotate(90deg) scale(1.08)}}
+.k-up{animation:ic-up 1.6s ease-in-out infinite}
+@keyframes ic-up{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.4px)}}
+.k-rot{animation:ic-rot 2.6s ease-in-out infinite}
+@keyframes ic-rot{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+.k-ants{stroke-dasharray:3 2.6;animation:ic-ants 1s linear infinite}
+@keyframes ic-ants{to{stroke-dashoffset:-11.2}}
+.k-ray{animation:ic-fade 1.8s ease-in-out infinite}.k-ray.r1{stroke:#ff7a9c}.k-ray.r2{stroke:#ffd166;animation-delay:.2s}.k-ray.r3{stroke:#4fd1c5;animation-delay:.4s}
+.k-ring{animation:ic-ring 2s ease-out infinite}.k-ring.d2{animation-delay:1s}
+@keyframes ic-ring{from{transform:scale(.2);opacity:1}to{transform:scale(1);opacity:0}}
+.k-sync{animation:ic-sync 1.8s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes ic-sync{0%,15%{transform:rotate(0)}85%,100%{transform:rotate(360deg)}}
+.k-trace{stroke:#4fd1c5;stroke-dasharray:22 78;animation:ic-trace 1.8s linear infinite}
+@keyframes ic-trace{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.k-needle{animation:ic-needle 2.8s ease-in-out infinite}
+@keyframes ic-needle{0%,100%{transform:rotate(-25deg)}35%{transform:rotate(40deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(12deg)}}
+.k-st{animation:ic-st 2.4s ease-in-out infinite;fill:transparent}.k-st.s2{animation-delay:.4s}.k-st.s3{animation-delay:.8s}
+@keyframes ic-st{0%,10%{fill:transparent}25%,70%{fill:#4fd1c5}90%,100%{fill:transparent}}
+.k-draw{stroke-dasharray:100;animation:ic-draw 2.2s ease-in-out infinite}
+@keyframes ic-draw{0%{stroke-dashoffset:100}40%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:-100}}
+.k-upl{animation:ic-upl 1.6s ease-in infinite}
+@keyframes ic-upl{0%{transform:translateY(3px);opacity:0}25%,60%{transform:translateY(0);opacity:1}100%{transform:translateY(-5px);opacity:0}}
+.k-dnl{animation:ic-dnl 1.6s ease-in infinite}
+@keyframes ic-dnl{0%{transform:translateY(-5px);opacity:0}30%,65%{transform:translateY(0);opacity:1}100%{transform:translateY(3px);opacity:0}}
+.k-fill{stroke-dasharray:100;transform:rotate(-90deg);animation:ic-fill 2.6s ease-in-out infinite}
+@keyframes ic-fill{0%{stroke-dashoffset:100}70%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+.k-retry{animation:ic-retry 2s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes ic-retry{0%,30%{transform:rotate(0)}100%{transform:rotate(-360deg)}}
+.k-type{stroke-dasharray:100;animation:ic-type 2.4s steps(6) infinite}.k-type.l2{animation-delay:.35s}.k-type.l3{animation-delay:.7s}
+@keyframes ic-type{0%{stroke-dashoffset:100}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+.k-blink{animation:ic-blink 1s steps(1) infinite}
+@keyframes ic-blink{50%{opacity:0}}
+.k-ba{animation:ic-ba 2.4s ease-in-out infinite}.k-bb{animation:ic-bb 2.4s ease-in-out infinite}
+@keyframes ic-ba{0%,100%{transform:translate(0,0)}50%{transform:translate(-1px,-1.5px)}}
+@keyframes ic-bb{0%,100%{transform:translate(0,0)}50%{transform:translate(1px,1.5px)}}
+.k-hl{fill:rgba(79,209,197,.28);stroke:none;transform-origin:4.5px 12px;animation:ic-hl 2.2s ease-in-out infinite}
+@keyframes ic-hl{0%{transform:scaleX(0)}45%,75%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.k-look{animation:ic-look 2.4s ease-in-out infinite}
+@keyframes ic-look{0%,100%{transform:translate(0,0)}25%{transform:translate(-2px,-1px)}50%{transform:translate(-1px,2px)}75%{transform:translate(1.5px,.5px)}}
+.k-sum{transform-origin:4px 12px;animation:ic-sum 2.6s ease-in-out infinite}.k-sum.a{animation-name:ic-suma}.k-sum.c{animation-name:ic-suma}
+@keyframes ic-suma{0%,15%{transform:scaleX(1);opacity:1}55%,85%{transform:scaleX(.2) translateY(0);opacity:0}100%{transform:scaleX(1);opacity:1}}
+@keyframes ic-sum{0%,15%{transform:scaleX(1)}55%,85%{transform:scaleX(.45)}100%{transform:scaleX(1)}}
+.k-bub{animation:ic-bub 1.8s ease-in infinite}.k-bub.b2{animation-delay:.6s}.k-bub.b3{animation-delay:1.2s}
+@keyframes ic-bub{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-7px);opacity:0}}
+.k-flip{animation:ic-flip 2.4s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes ic-flip{0%,70%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+.k-sand{transform-origin:12px 19.6px;animation:ic-sand 2.4s linear infinite}
+@keyframes ic-sand{0%{transform:scale(.2)}70%,100%{transform:scale(1)}}
+.k-key{animation:ic-key 2.2s ease-in-out infinite}
+@keyframes ic-key{0%,100%{transform:translateX(-1.5px)}40%{transform:translateX(1.5px)}55%,75%{transform:translateX(1.5px) rotate(-12deg)}}
+.k-mail{animation:ic-mail 2.4s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes ic-mail{0%,35%{transform:translate(0,0) scale(1);opacity:1}70%{transform:translate(10px,-8px) scale(.4);opacity:0}71%{transform:translate(-6px,4px) scale(.6);opacity:0}100%{transform:translate(0,0) scale(1);opacity:1}}
+.k-glow{animation:ic-glow 2s ease-in-out infinite}
+@keyframes ic-glow{0%,100%{fill:transparent}45%,60%{fill:rgba(255,209,102,.4);stroke:#ffd166}}
+.k-rays{stroke:#ffd166;animation:ic-fade 2s ease-in-out infinite}
+.k-eyes{transform-origin:12px 13px;animation:ic-eyes 3s ease-in-out infinite}
+@keyframes ic-eyes{0%,44%,52%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+.k-ant{transform-origin:12px 4.3px;animation:ic-pulse 1.2s ease-in-out infinite;color:#4fd1c5}

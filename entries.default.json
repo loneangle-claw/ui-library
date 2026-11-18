@@ -1117,6 +1117,144 @@
       "preview": "mo-15",
       "hue": 150,
       "addedAt": "2026-11-16"
+    },
+    {
+      "id": "ic-01",
+      "code": "IC-01",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：訊號與偵測",
+      "en": "Animated Icons",
+      "desc": "掃描、廣播、收音、搜尋訊號、雷達、通知六個圖示，表達「正在偵測或發出訊號」。",
+      "spec": "scan 掃描：四角框固定，中間一條線上下來回掃，約 1.8 秒一趟。\nbroadcast 廣播：中心點兩側各兩道弧線，內圈先亮、外圈晚 0.3 秒亮，像訊號往外送。\nlisten 收音：麥克風裡的音量條由下往上伸縮，約 0.9 秒一次。\nwifi-search 搜尋訊號：三道弧由內到外依序亮起再暗下。\nradar 雷達：一條掃描線繞中心轉圈，途中有一個光點閃現再淡出。\nnotify 通知：文件右上角的小圓點一縮一放。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "訊號",
+        "偵測",
+        "循環動畫",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-01",
+      "hue": 245,
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "ic-02",
+      "code": "IC-02",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：形狀與光影",
+      "en": "Animated Icons",
+      "desc": "閃光、圖層、變形、稜面、稜鏡、波紋六個圖示，偏裝飾性的形狀變化。",
+      "spec": "spark 閃光：四角星旋轉 90 度並放大縮小，像在閃爍。\nlayers 圖層：最上層的菱形上下浮動，下面兩層不動。\nmorph 變形：方塊一邊旋轉 90 度、一邊圓角從 2 變到 6 再變回來（用 SVG 的 animate 改 rx）。\nfacets 稜面：三角形外框用虛線，虛線沿著邊緣流動。\nprism 稜鏡：一道光射進三角形，另一側三道彩色光線（粉、黃、青）依序閃亮。\nwave 波紋：中心點往外擴散兩圈圓環，錯開 1 秒。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "形狀",
+        "光影",
+        "裝飾",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-02",
+      "hue": 265,
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "ic-03",
+      "code": "IC-03",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：載入與連線",
+      "en": "Animated Icons",
+      "desc": "載入中、連線中、同步、循環、設定、方向六個圖示，表達「處理中、請稍候」。",
+      "spec": "loading-orbit 載入中：淡色圓環上有一段 1/4 長的青色弧線繞圈，1.1 秒一圈。\nconnecting 連線中：中心圓外有虛線軌道，兩顆小點沿軌道慢慢公轉。\nsync 同步：兩個弧形箭頭停一下、再快速轉一整圈（先慢後快再慢）。\ninfinity 循環：無限符號底線淡色，一小段青色光沿著路徑一直跑。\ngear 設定：齒輪慢慢自轉，4 秒一圈。\ncompass 方向：指針左右擺盪幾下後停在略偏的方向，像羅盤在找北。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "載入",
+        "連線",
+        "處理中",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-03",
+      "hue": 175,
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "ic-04",
+      "code": "IC-04",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：進度與傳輸",
+      "en": "Animated Icons",
+      "desc": "步驟、驗證、上傳、下載、進度環、重試六個圖示，表達進度與完成狀態。",
+      "spec": "steps 步驟：三個圓點由左到右依序填滿青色，再一起清空重來。\nverify 驗證：六角形裡的勾勾一筆畫出來（stroke-dashoffset），停一下再從另一端擦掉。\nupload 上傳：箭頭從托盤裡往上冒出、停一下、繼續往上飛走淡出。\ndownload 下載：箭頭從上方落下停在托盤上，再往下沉進去。\npercent-ring 進度環：圓環從 12 點鐘方向順時針畫滿，滿了之後淡出重來。\nretry 重試：圓形箭頭停一下再逆時針轉一整圈。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "進度",
+        "傳輸",
+        "完成",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-04",
+      "hue": 185,
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "ic-05",
+      "code": "IC-05",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：AI 與文字",
+      "en": "Animated Icons",
+      "desc": "串流輸出、指令、翻譯、選取、搜尋、摘要六個圖示，適合 AI 工具和文字處理介面。",
+      "spec": "stream 串流輸出：三行字由上而下一格一格打出來（steps 動畫），像 AI 正在逐字輸出。\nprompt 指令：「>」提示符後面的底線游標一秒閃一次。\ntranslate 翻譯：左上的文字泡泡和右下的「A」泡泡互相輕輕靠近又分開。\nselect 選取：文字中間一行的反白底色由左往右拉開，像被滑鼠選取。\nsearch 搜尋：放大鏡在幾行淡色文字上來回移動。\nsummarize 摘要：三行長文字往左收短，上下兩行消失、中間一行縮成短句，再恢復。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "AI",
+        "文字",
+        "輸出",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-05",
+      "hue": 170,
+      "addedAt": "2026-11-18"
+    },
+    {
+      "id": "ic-06",
+      "code": "IC-06",
+      "category": "圖示與插畫",
+      "name": "會動的小圖示：工具與小物",
+      "en": "Animated Icons",
+      "desc": "實驗、等待、金鑰、寄出、靈感、小助理六個圖示，帶一點個性的功能圖示。",
+      "spec": "flask 實驗：燒瓶裡三顆小氣泡錯開時間往上冒並淡出。\nhourglass 等待：下方沙堆慢慢長大，接著整個沙漏翻轉 180 度。\nkey 金鑰：鑰匙往前推進、轉一下，再退回原位。\nmail-send 寄出：信封縮小並往右上飛走，從左下回來。\nlamp 靈感：燈泡亮起黃色，周圍的光線跟著閃一下。\nbot 小助理：機器人眨眼，天線上的燈一縮一放。\n圖示一律 24×24 viewBox、線寬約 1.7、圓角端點；用 currentColor 上色，方便跟著文字顏色走。\n動畫全用 CSS @keyframes 寫在圖示的子元素上，transform-origin 設在 12px 12px（圖示中心），不需要任何 JavaScript。\n記得加 prefers-reduced-motion：使用者關閉動態時改成靜態圖示。",
+      "tags": [
+        "工具",
+        "個性",
+        "小助理",
+        "SVG",
+        "CSS"
+      ],
+      "status": "收藏",
+      "star": false,
+      "note": "",
+      "source": "Reel：Claude Taiwan〈36 個會動的小圖示〉（純 SVG＋CSS、零依賴、MIT 開源）",
+      "preview": "ic-06",
+      "hue": 30,
+      "addedAt": "2026-11-18"
     }
   ]
 }
