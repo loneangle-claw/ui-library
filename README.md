@@ -17,6 +17,7 @@
 - `preview` 對應 `app.js` 的 `PREVIEWS`（bn-01 到 bn-11）或 `previewHTML` 裡的專屬示範（db-01；bg-01 到 bg-06 的背景效果由 `bgHTML`／`bgTap` 處理；nt-01 到 nt-06 的通知動效由 `ntHTML`／`NT_PLAY` 處理，看得到時自動播；mo-01 由 `moHTML` 處理；sw-01 到 sw-06 的下拉選單展開由 `swHTML`／`SW_FX` 處理，看得到時自動示範；cd-01 的三檢視卡片展示獨立在 `cd01.js`（`cdHTML`／`initCds`，自己處理點擊與拖曳，14 張卡片的小動效畫在 canvas 上，沒人操作時自動輪播）；mo-02 到 mo-15 是同一批小動效各自獨立的示範（`cdFxHTML`／`initCdFx`，點一下切換疏密））
 - lp-01 的捷運路線導覽獨立在 `lp01.js`（`lpHTML`／`initLps`）：地圖、路線、三節列車用 canvas 自己做透視投影，頂部列、到站卡片、總結卡是 DOM（720×900 圖層整層縮放）；時間表 `LP_SCHED` 循環播放，看得到時才畫，點一下跳到下一段
 - ic-01 到 ic-06 的會動小圖示（每款 6 個，共 36 個）由 `icHTML` 加 style.css 的 `k-*` 動畫處理，純 SVG＋CSS，點一下重播
+- ui-01 到 ui-12 的介面風格示範獨立在 `ui12.js`（`uiHTML`／`uiTap`）：同一組元件（數字與圖表、分段切換、開關、環圈、待辦、按鈕、加減器）共用一份結構，12 種外皮寫在 style.css 的 `.u01`–`.u12`；各款文案與數字在 `UI_C`
 - 所有底部選單示範的選中指示器都由 `place()` 的雙彈簧驅動（前緣 ω₀ 19／ζ 0.55、後緣 ω₀ 11／ζ 0.72，即 MO-01），不用 CSS transition；新的可操作預覽要同時加 `PREVIEWS` 與 `style.css` 的樣式
 - 改版時 `index.html` 的 `?v=N` 要一起改號
 - 版面用 `100dvh`，不用 `vh`；表單一律 16px（iOS 聚焦不放大）

@@ -1096,3 +1096,398 @@ footer{padding:28px var(--gut) calc(var(--bot) + 36px)}
 .lpx.night .lpcl{color:#8fb2ff}
 .lpx.night .lpd{background:#0b0f26}
 @media (prefers-reduced-motion:reduce){.lpc,.lps,.lpb,.lpt,.lptk,.lppf{transition-duration:.01s}.lpd *,.lptk i{animation:none}}
+
+/* UI 系列：同一組元件換 12 種外皮（結構在 ui12.js，以下先是共用骨架，再來 .u01–.u12） */
+.uix{--ink:#111;position:relative;z-index:0;isolation:isolate;display:grid;grid-template-columns:1fr 1fr .92fr;gap:.7em;padding:1em;font-size:10px;border-radius:10px;overflow:hidden;font-family:var(--font-body);line-height:1.25;color:var(--ink);text-align:left;-webkit-user-select:none;user-select:none}
+.pv.big .uix{font-size:15px;max-width:440px;margin:0 auto;border-radius:14px;box-shadow:0 26px 50px -14px hsl(var(--h) 60% 25% / .5)}
+.uix button{font:inherit;color:inherit;border:0;background:none;padding:0;margin:0;cursor:pointer;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.uix .xc{position:relative;min-width:0;padding:.9em;display:flex;flex-direction:column;gap:.5em;box-sizing:border-box}
+.uix .xa{grid-column:1/3;grid-row:1/3;min-height:15em}
+.uix .xd4{grid-column:1/3}
+.uix .xl{display:block;font:500 .72em/1.2 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;opacity:.7;white-space:nowrap}
+.uix .xseg{position:absolute;top:.7em;right:.7em;display:flex;gap:.1em}
+.uix .xseg button{padding:.3em .65em;font-size:.78em;line-height:1.2}
+.uix .xn{display:block;font-size:2.3em;font-weight:800;line-height:1;letter-spacing:-.02em;margin-top:.2em}
+.uix .xd{font-size:.8em;font-style:normal;opacity:.75}
+.uix .xbars{display:flex;align-items:stretch;gap:.45em;height:5.6em;margin-top:auto;box-sizing:border-box}
+.uix .xbars i{position:relative;flex:1;display:flex;align-items:flex-end}
+.uix .xbars i::after{content:'';width:100%;height:calc(var(--v)*100%);background:currentColor;transition:height .45s cubic-bezier(.3,1.3,.5,1)}
+.uix .xline{display:none;position:relative;height:5.6em;margin-top:auto}
+.uix .xline svg{display:block;width:100%;height:100%;overflow:visible}
+.uix .xline path{fill:none;stroke:currentColor;stroke-width:1.6;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.uix .xline .ar{stroke:none}
+.uix .xline u{display:none;position:absolute;right:-.3em;top:calc(var(--ey)*100% - .3em);width:.6em;height:.6em;border-radius:50%;background:currentColor;transition:top .3s}
+.uix .xt{position:relative;width:3.6em;height:2em;border-radius:1em;flex:none;transition:background .2s,box-shadow .2s}
+.uix .xt i{position:absolute;left:.2em;top:.2em;width:1.6em;height:1.6em;border-radius:50%;transition:transform .25s,background .2s}
+.uix .xt[aria-pressed=true] i{transform:translateX(1.6em)}
+.uix .xs{font-size:.85em}
+.uix .xs::after{content:'Off'}
+.uix .xt[aria-pressed=true]+.xs::after{content:'On'}
+.uix .xr{--rc:currentColor;--rt:rgba(0,0,0,.12);--rw:.6em;position:relative;width:4.6em;height:4.6em;border-radius:50%;display:grid;place-items:center;align-self:center;margin:auto 0}
+.uix .xr::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--rc) calc(var(--p)*1%),var(--rt) 0);-webkit-mask:radial-gradient(closest-side,transparent calc(100% - var(--rw)),#000 calc(100% - var(--rw) + 1px));mask:radial-gradient(closest-side,transparent calc(100% - var(--rw)),#000 calc(100% - var(--rw) + 1px))}
+.uix .xr b{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:3.2em;height:3.2em;border-radius:50%;font-size:.95em;font-weight:700}
+.uix .xr b::after{content:'%';font-size:.7em}
+.uix .xk{display:flex;align-items:center;gap:.6em;font-size:.92em;text-align:left}
+.uix .xk i{width:1.25em;height:1.25em;flex:none;display:grid;place-items:center;font-style:normal;line-height:1;box-sizing:border-box}
+.uix .xk.on i::after{content:'✓';font-size:.9em}
+.uix .xk.on span{text-decoration:line-through;opacity:.55}
+.uix .xb{margin-top:.3em;padding:.7em;text-align:center;font-weight:700;font-size:.95em;transition:transform .12s,box-shadow .12s,background .12s}
+.uix .xb.hit{transform:scale(.97)}
+.uix .xst{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.uix .xst b{font-size:1.8em;line-height:1}
+.uix .xst button{width:1.9em;height:1.9em;display:grid;place-items:center;border-radius:50%;line-height:1}
+@keyframes uidraw{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -5% -20% 0)}}
+@keyframes uiglow{to{filter:blur(1.1em) hue-rotate(360deg)}}
+@keyframes uiboot{0%{clip-path:inset(49% 0 49% 0);filter:brightness(2.6)}45%{clip-path:inset(49% 0 49% 0);filter:brightness(2.6)}100%{clip-path:inset(-1em);filter:none}}
+
+/* 01 液態玻璃 */
+.u01{color:#fff;background:radial-gradient(60% 50% at 15% 8%,#2b4fd6,transparent 70%),radial-gradient(55% 45% at 92% 28%,#f3e7d3,transparent 70%),radial-gradient(70% 60% at 72% 88%,#e24a3b,transparent 70%),radial-gradient(60% 50% at 8% 92%,#1b2f9a,transparent 70%),#8a3350}
+.u01 .xc{border-radius:1.5em;background:rgba(255,255,255,.13);-webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);box-shadow:inset .08em .08em 0 rgba(255,255,255,.55),inset -.06em -.08em 0 rgba(0,0,0,.18),0 .8em 2em rgba(10,10,40,.28)}
+.u01 .xseg{background:rgba(0,0,0,.22);border-radius:1em;padding:.15em}
+.u01 .xseg button{border-radius:1em}
+.u01 .xseg .on{background:#fff;color:#1c1c3a}
+.u01 .xd{align-self:flex-start;background:#3ddc84;color:#06351c;opacity:1;padding:.1em .5em;border-radius:1em;font-weight:700}
+.u01 .xbars{display:none}
+.u01 .xline{display:block}
+.u01 .xline .ar{fill:rgba(255,255,255,.14)}
+.u01 .xline u{display:block;box-shadow:0 0 0 .22em rgba(255,255,255,.3)}
+.u01 .xt{background:rgba(0,0,0,.28);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.u01 .xt[aria-pressed=true]{background:rgba(61,220,132,.8)}
+.u01 .xt i{background:#fff;box-shadow:0 .2em .5em rgba(0,0,0,.3)}
+.u01 .xr{--rc:#ffc27a;--rt:rgba(255,255,255,.22)}
+.u01 .xk i{border-radius:50%;box-shadow:inset 0 0 0 .12em rgba(255,255,255,.8)}
+.u01 .xk.on i{background:#fff;color:#1c1c3a}
+.u01 .xb{background:#fff;color:#1c1c3a;border-radius:1em;box-shadow:0 .4em 1em rgba(0,0,0,.2)}
+.u01 .xst button{box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+
+/* 02 新擬態 */
+.u02{--ink:#4a5568;--up:.5em .5em 1em #c8cfdb,-.5em -.5em 1em #fff;--in:inset .25em .25em .5em #c8cfdb,inset -.25em -.25em .5em #fff;background:#e9edf3;gap:1em;padding:1.2em}
+.u02 .xc{border-radius:1.6em;box-shadow:var(--up)}
+.u02 .xseg{border-radius:1em;box-shadow:var(--in);padding:.2em}
+.u02 .xseg button{border-radius:1em;color:#8a94a6}
+.u02 .xseg .on{background:#e9edf3;box-shadow:.2em .2em .4em #c8cfdb,-.2em -.2em .4em #fff;color:#ff7a3d}
+.u02 .xn{font-weight:500;color:#3a4252}
+.u02 .xbars i{border-radius:1em;box-shadow:var(--in);overflow:hidden;color:#d3d9e4}
+.u02 .xbars i::after{border-radius:1em}
+.u02 .xbars .hi{color:#ff7a3d}
+.u02 .xt{box-shadow:var(--in)}
+.u02 .xt i{background:#e9edf3;box-shadow:.15em .15em .35em #bcc4d1,-.1em -.1em .3em #fff}
+.u02 .xt[aria-pressed=true] i{background:#ff7a3d}
+.u02 .xr{--rc:#ff7a3d;--rt:transparent;box-shadow:var(--in)}
+.u02 .xr b{box-shadow:.25em .25em .5em #c8cfdb,-.25em -.25em .5em #fff}
+.u02 .xk i{border-radius:.35em;box-shadow:var(--in)}
+.u02 .xk.on i{color:#ff7a3d}
+.u02 .xb{border-radius:1em;box-shadow:var(--up);color:#ff7a3d}
+.u02 .xb.hit{box-shadow:var(--in);transform:none}
+.u02 .xst button{box-shadow:.2em .2em .45em #c8cfdb,-.2em -.2em .45em #fff}
+
+/* 03 新粗野主義 */
+.u03{--ink:#000;--bd:.28em solid #000;--sh:.38em .38em 0 #000;background:#f4f0e6;font-family:var(--font-display);gap:1em;padding:1em 1.3em 1.3em 1em}
+.u03 .xc{border:var(--bd);box-shadow:var(--sh);background:#fff}
+.u03 .xa{background:#ffe14d}
+.u03 .xr2{background:#ff6fb5}
+.u03 .xd4{background:#7df0c0}
+.u03 .xe{background:#c9a7ff}
+.u03 .xl{align-self:flex-start;background:#000;color:#fff;opacity:1;padding:.25em .5em}
+.u03 .xseg{border:.2em solid #000;background:#fff;top:.6em;right:.6em;gap:0}
+.u03 .xseg button{font-weight:800}
+.u03 .xseg .on{background:#000;color:#fff}
+.u03 .xn{font-size:2.8em}
+.u03 .xd{font-weight:800;opacity:1}
+.u03 .xbars i::after{border:.2em solid #000;background:#ff6fb5;box-sizing:border-box}
+.u03 .xbars .hi::after{background:#3b6bff}
+.u03 .xt{border-radius:0;border:.22em solid #000;background:#fff;width:3.4em}
+.u03 .xt i{border-radius:0;background:#000;left:.13em;top:.13em;width:1.3em;height:1.3em}
+.u03 .xt[aria-pressed=true]{background:#ffe14d}
+.u03 .xt[aria-pressed=true] i{transform:translateX(1.4em)}
+.u03 .xs{font-weight:800;font-size:1.3em;text-transform:uppercase}
+.u03 .xr{--rc:#000;--rt:#fff;--rw:10em;border:.25em solid #000}
+.u03 .xr b{background:#ffe14d;border:.2em solid #000;border-radius:0;width:2.7em;height:1.9em;box-sizing:border-box}
+.u03 .xk{font-weight:800}
+.u03 .xk i{border:.2em solid #000;background:#fff}
+.u03 .xb{background:#3b6bff;color:#fff;border:var(--bd);box-shadow:var(--sh);text-transform:uppercase;letter-spacing:.06em;font-weight:800;transition:none}
+.u03 .xb.hit{transform:translate(.38em,.38em);box-shadow:0 0 0 #000}
+.u03 .xst button{border-radius:0;border:.2em solid #000;background:#fff;box-shadow:.2em .2em 0 #000;font-weight:800}
+.u03 .xst b{font-size:1.7em}
+.u03 .xst button{width:1.5em;height:1.5em}
+
+/* 04 黏土風 */
+.u04{--ink:#5b4a8a;background:linear-gradient(140deg,#f3e3ff,#ffe9f1 50%,#e2f4ff);font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",var(--font-body);gap:.9em;padding:1.1em 1.1em 1.5em}
+.u04 .xc{border-radius:2em;background:var(--c);box-shadow:0 .7em 1.3em var(--s),inset 0 -.5em .8em rgba(0,0,0,.07),inset 0 .5em .7em rgba(255,255,255,.75)}
+.u04 .xa{--c:#ffe9d6;--s:rgba(255,170,110,.4)}
+.u04 .xb2{--c:#fff0b3;--s:rgba(240,200,60,.4)}
+.u04 .xr2{--c:#cdefff;--s:rgba(90,180,240,.4)}
+.u04 .xd4{--c:#ffd3e4;--s:rgba(255,120,170,.4)}
+.u04 .xe{--c:#d6f5e3;--s:rgba(80,200,140,.4)}
+.u04 .xl{font-family:inherit;text-transform:none;letter-spacing:0;font-size:.8em}
+.u04 .xseg{background:rgba(255,255,255,.55);border-radius:1em;padding:.15em}
+.u04 .xseg button{border-radius:1em}
+.u04 .xseg .on{background:#fff;box-shadow:0 .2em .4em rgba(160,110,80,.25)}
+.u04 .xd{align-self:flex-start;background:#ffe27a;color:#8a6a00;opacity:1;padding:.1em .6em;border-radius:1em;font-weight:700}
+.u04 .xbars i{border-radius:1em;background:rgba(255,255,255,.55);color:#77e0ad}
+.u04 .xbars i::after{border-radius:1em;box-shadow:inset 0 .3em .3em rgba(255,255,255,.6),inset 0 -.3em .3em rgba(0,90,50,.12)}
+.u04 .xbars .hi::before{content:'';position:absolute;z-index:1;left:50%;bottom:calc(var(--v)*100% - 1.5em);width:.9em;height:.55em;transform:translateX(-50%);background:radial-gradient(circle at 18% 30%,#1f6b4a .13em,transparent .15em),radial-gradient(circle at 82% 30%,#1f6b4a .13em,transparent .15em);border-bottom:.13em solid #1f6b4a;border-radius:0 0 .6em .6em;transition:bottom .45s cubic-bezier(.3,1.3,.5,1)}
+.u04 .xt{background:#fff8d6;box-shadow:inset 0 .2em .35em rgba(160,130,0,.25)}
+.u04 .xt i{background:#fff;box-shadow:0 .2em .35em rgba(160,130,0,.3),inset 0 -.15em .2em rgba(0,0,0,.06);transition:transform .4s cubic-bezier(.34,1.7,.64,1)}
+.u04 .xt[aria-pressed=true]{background:#b79cff}
+.u04 .xr{--rc:#5cc4f5;--rt:rgba(255,255,255,.75)}
+.u04 .xk i{border-radius:.45em;background:#fff;box-shadow:inset 0 .12em .2em rgba(200,80,130,.25)}
+.u04 .xk.on i{background:#ff8fc0;color:#fff}
+.u04 .xb{background:#ff8fc0;color:#fff;border-radius:2em;box-shadow:0 .5em .9em rgba(255,110,170,.45),inset 0 -.3em .4em rgba(190,40,110,.2),inset 0 .3em .4em rgba(255,255,255,.5);transition:transform .38s cubic-bezier(.34,1.9,.64,1)}
+.u04 .xb.hit{transform:scale(1.06,.88);transition-duration:.08s}
+.u04 .xst button{background:#fff;box-shadow:0 .2em .4em rgba(60,170,110,.3),inset 0 -.15em .2em rgba(0,0,0,.06)}
+
+/* 05 電漿輝光 */
+.u05{color:#f2f0ff;background:#07060d;gap:.9em;padding:1.2em}
+.u05 .xc{border-radius:1.3em;background:#100e19;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.u05 .xa::before,.u05 .xr2::before,.u05 .xd4::before{content:'';position:absolute;inset:-.25em;z-index:-1;border-radius:inherit;filter:blur(1.1em) hue-rotate(0deg);opacity:.9;animation:uiglow 10s linear infinite}
+.u05 .xa::before{background:linear-gradient(120deg,#7b3dff,transparent 38%,transparent 62%,#19d3ff)}
+.u05 .xr2::before{background:linear-gradient(200deg,#ff3dbd,transparent 65%)}
+.u05 .xd4::before{background:linear-gradient(20deg,#ff8a3d,transparent 42%,transparent 60%,#b03dff)}
+.u05 .xl{color:#8f8aa8;opacity:1}
+.u05 .xn{font-family:var(--font-mono);font-weight:500}
+.u05 .xd{color:#5fe0c0;opacity:1;font-family:var(--font-mono)}
+.u05 .xseg button{color:#77728f;font-family:var(--font-mono)}
+.u05 .xseg .on{color:#fff;box-shadow:inset 0 -.15em 0 #b06bff}
+.u05 .xbars{display:none}
+.u05 .xline{display:block;color:#c56bff}
+.u05 .xline .ln{filter:drop-shadow(0 0 .35em #c56bff)}
+.u05 .xline .ar{fill:rgba(160,90,255,.12)}
+.u05 .xline u{display:block;background:#fff;box-shadow:0 0 .8em .2em #ff8ad8}
+.u05 .xt{background:#1c1929;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.u05 .xt i{background:#6b6880}
+.u05 .xt[aria-pressed=true]{box-shadow:inset 0 0 0 1px #9a6bff,0 0 1em rgba(140,90,255,.6)}
+.u05 .xt[aria-pressed=true] i{background:#fff}
+.u05 .xs{color:#8f8aa8;font-family:var(--font-mono);text-transform:uppercase}
+.u05 .xr{--rt:rgba(255,255,255,.08);--rw:.45em}
+.u05 .xr::before{background:conic-gradient(#6b5bff,#ff5fd0 calc(var(--p)*1%),var(--rt) 0)}
+.u05 .xr b{font-family:var(--font-mono);font-weight:500}
+.u05 .xk i{border-radius:.35em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.u05 .xk.on i{background:linear-gradient(135deg,#7b5bff,#ff5fd0);box-shadow:0 0 .8em rgba(170,90,255,.7)}
+.u05 .xb{border-radius:.8em;background:#14111f;box-shadow:inset 0 0 0 1px #a06bff,0 0 1.2em rgba(140,80,255,.35);font-weight:500}
+.u05 .xb.hit{box-shadow:inset 0 0 0 1px #d0a6ff,0 0 2em rgba(170,100,255,.85);transform:none}
+.u05 .xst button{box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.u05 .xst b{font-family:var(--font-mono);font-weight:500}
+
+/* 06 擬真硬體 */
+.u06{--ink:#2b2a27;--scr:radial-gradient(circle at .55em .55em,#7d786b .16em,transparent .2em),radial-gradient(circle at calc(100% - .55em) .55em,#7d786b .16em,transparent .2em),radial-gradient(circle at .55em calc(100% - .55em),#7d786b .16em,transparent .2em),radial-gradient(circle at calc(100% - .55em) calc(100% - .55em),#7d786b .16em,transparent .2em);background:#26282c;font-family:var(--font-mono);gap:.6em}
+.u06 .xc{border-radius:.5em;padding:1.1em;background:var(--scr),linear-gradient(#f1ebdb,#e2dbc8);box-shadow:inset 0 .1em 0 #fff,inset 0 -.15em 0 #b9b19c,0 .3em .6em rgba(0,0,0,.5)}
+.u06 .xr2{background:var(--scr),linear-gradient(#ff8a3d,#f26a1b);box-shadow:inset 0 .1em 0 #ffb27a,inset 0 -.15em 0 #b04a0c,0 .3em .6em rgba(0,0,0,.5)}
+.u06 .xe{background:var(--scr),linear-gradient(#3a3d42,#2c2e33);color:#cfcabb;box-shadow:inset 0 .1em 0 #55585e,inset 0 -.15em 0 #1a1b1e,0 .3em .6em rgba(0,0,0,.5)}
+.u06 .xl{letter-spacing:.14em;opacity:.8;font-size:.62em}
+.u06 .xn{align-self:flex-start;font:500 1.9em var(--font-mono);color:#ffb347;background:#1a1410;padding:.2em .4em;border-radius:.2em;box-shadow:inset 0 .15em .3em #000;text-shadow:0 0 .4em rgba(255,160,50,.8);letter-spacing:.05em}
+.u06 .xd{display:none}
+.u06 .xseg{top:1em;right:1em;gap:.25em}
+.u06 .xseg button{background:linear-gradient(#f7f3e8,#d8d1bd);box-shadow:0 .2em 0 #9a937f,0 .3em .3em rgba(0,0,0,.3);border-radius:.2em}
+.u06 .xseg .on{transform:translateY(.15em);box-shadow:0 .05em 0 #9a937f;color:#f26a1b}
+.u06 .xbars{background:#1c1e21;padding:.4em;border-radius:.3em;box-shadow:inset 0 .15em .4em #000;gap:.3em;color:#3dff7a}
+.u06 .xbars i::after{background:repeating-linear-gradient(to top,currentColor 0 .3em,transparent .3em .45em);filter:drop-shadow(0 0 .25em currentColor)}
+.u06 .xbars .hi{color:#ffb347}
+.u06 .xt{width:2.4em;height:3em;border-radius:.3em;background:#1a1a1a;box-shadow:inset 0 0 0 .15em #444,0 .2em .3em rgba(0,0,0,.4);align-self:center}
+.u06 .xt i{left:.3em;top:.3em;width:1.8em;height:2.4em;border-radius:.2em;background:linear-gradient(#5a120c 50%,#7a1c14 50%);transition:none}
+.u06 .xt[aria-pressed=true] i{transform:none;background:linear-gradient(#ff6a55 50%,#ff2f1a 50%);box-shadow:0 0 .8em rgba(255,60,40,.8)}
+.u06 .xs{align-self:center;font-size:.65em;letter-spacing:.14em;text-transform:uppercase}
+.u06 .xr{--rw:10em;width:4.4em;height:4.4em}
+.u06 .xr::before{background:repeating-conic-gradient(#111 0 4deg,#3d3d3d 4deg 8deg);-webkit-mask:none;mask:none;box-shadow:0 .3em .5em rgba(0,0,0,.4)}
+.u06 .xr b{width:3.3em;height:3.3em;font-size:1em;color:transparent;background:conic-gradient(#c9c9c9,#f6f6f6,#9d9d9d,#efefef,#a8a8a8,#f6f6f6,#c9c9c9);transform:rotate(calc(-135deg + var(--p)*2.7deg));transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
+.u06 .xr b::after{content:'';position:absolute;top:.2em;left:50%;width:.24em;height:1em;margin-left:-.12em;background:#f26a1b;border-radius:.1em;font-size:1em}
+.u06 .xk{font-size:.8em;letter-spacing:.1em;text-transform:uppercase}
+.u06 .xk i{border-radius:50%;background:#3a2a22;box-shadow:inset 0 .1em .2em #000;width:.9em;height:.9em}
+.u06 .xk.on i{background:#3dff7a;box-shadow:0 0 .6em #3dff7a}
+.u06 .xk.on i::after{content:none}
+.u06 .xk.on span{text-decoration:none;opacity:1}
+.u06 .xb{background:linear-gradient(#ff8a3d,#f26a1b);color:#fff;border-radius:.3em;box-shadow:0 .3em 0 #a8430c,0 .5em .6em rgba(0,0,0,.3);text-transform:uppercase;letter-spacing:.12em;font-size:.8em;font-weight:500}
+.u06 .xb.hit{transform:translateY(.22em);box-shadow:0 .08em 0 #a8430c}
+.u06 .xst b{font:500 1.7em var(--font-mono);color:#ff3b2f;background:#160c0a;padding:.1em .3em;border-radius:.15em;text-shadow:0 0 .4em #ff3b2f;box-shadow:inset 0 .1em .3em #000}
+.u06 .xst button{border-radius:.25em;background:linear-gradient(#55585e,#3c3f44);color:#ddd;box-shadow:0 .15em 0 #1a1b1e;width:1.5em;height:1.5em}
+
+/* 07 復古作業系統 */
+.u07{--ink:#000;background:repeating-conic-gradient(#000 0 25%,#fff 0 50%) 0 0/.2em .2em;font-family:"VT323","Courier New",monospace;-webkit-font-smoothing:none;gap:.8em;padding:1em 1.1em 1.1em 1em}
+.u07 .xc{font-size:1.25em;padding:0 .6em .6em;gap:.35em;background:#fff;box-shadow:0 0 0 1px #000,.2em .2em 0 0 #000}
+.u07 .xa{min-height:12em}
+.u07 .xl{margin:0 -.6em .15em;padding:.1em 0;text-align:center;border-bottom:1px solid #000;background:repeating-linear-gradient(#000 0 1px,#fff 1px 3px) 0 50%/100% 60% no-repeat;opacity:1;font:inherit;letter-spacing:0;text-transform:none}
+.u07 .xl span{background:#fff;padding:0 .5em}
+.u07 .xseg{position:static;align-self:flex-start;box-shadow:0 0 0 1px #000;gap:0}
+.u07 .xseg button{font-size:1em;padding:0 .5em;line-height:1.1}
+.u07 .xseg .on{background:#000;color:#fff}
+.u07 .xn{font-weight:400;font-size:2.2em;margin:0;letter-spacing:0}
+.u07 .xd{opacity:1;font-size:1em}
+.u07 .xbars{height:3.6em}
+.u07 .xbars i::after{background:repeating-linear-gradient(135deg,#000 0 1px,#fff 1px 3px);box-shadow:inset 0 0 0 1px #000}
+.u07 .xbars .hi::after{background:#000}
+.u07 .xt{border-radius:0;width:1.3em;height:1.3em;box-shadow:inset 0 0 0 1px #000}
+.u07 .xt i{display:none}
+.u07 .xt[aria-pressed=true]{background:linear-gradient(45deg,transparent 44%,#000 44% 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#000 44% 56%,transparent 56%)}
+.u07 .xs{font-size:1em}
+.u07 .xr{--rc:#000;--rt:transparent;--rw:10em;width:3.6em;height:3.6em;box-shadow:inset 0 0 0 1px #000;background:repeating-conic-gradient(#000 0 25%,#fff 0 50%) 0 0/.25em .25em}
+.u07 .xr b{background:#fff;box-shadow:0 0 0 1px #000;border-radius:0;width:auto;height:auto;padding:0 .3em;font-weight:400;font-size:1em}
+.u07 .xk{font-size:1em}
+.u07 .xk i{width:1em;height:1em;box-shadow:inset 0 0 0 1px #000}
+.u07 .xk.on i::after{content:'×';font-size:1.1em}
+.u07 .xk.on span{opacity:1}
+.u07 .xb{align-self:flex-end;padding:.05em 1.2em;border-radius:.5em;box-shadow:0 0 0 1px #000,0 0 0 3px #fff,0 0 0 4px #000;margin:.2em .4em .3em;font-weight:400;font-size:1em;transition:none}
+.u07 .xb.hit{background:#000;color:#fff;transform:none}
+.u07 .xst b{font-weight:400}
+.u07 .xst button{border-radius:0;box-shadow:inset 0 0 0 1px #000;width:1.3em;height:1.3em}
+
+/* 08 手繪草稿 */
+.u08{--ink:#2f2d2a;--pen:.12em solid #3a3835;background:radial-gradient(#cfc8b4 .06em,transparent .08em) 0 0/1em 1em,#fbf7ea;font-family:"Caveat","Bradley Hand","Segoe Print",cursive;gap:.9em;padding:1.2em}
+.u08 .xc{font-size:1.25em;padding:.6em .7em;gap:.3em;border:var(--pen);border-radius:1.6em .4em 1.4em .5em/.5em 1.5em .4em 1.6em;background:rgba(255,255,255,.5)}
+.u08 .xa{min-height:12em}
+.u08 .xb2{background:#ffe95c;border-color:transparent;border-radius:.1em;transform:rotate(-2.5deg);box-shadow:.1em .25em .4em rgba(0,0,0,.18)}
+.u08 .xb2::before{content:'';position:absolute;top:-.45em;left:32%;width:2.4em;height:.8em;background:rgba(255,140,120,.6);transform:rotate(-5deg)}
+.u08 .xl{font:inherit;font-weight:600;text-transform:none;letter-spacing:0;opacity:1}
+.u08 .xseg{top:.5em;right:.6em}
+.u08 .xseg button{font-size:.9em;color:#8a857a;padding:.1em .4em}
+.u08 .xseg .on{color:#2f2d2a;background:linear-gradient(transparent 20%,#ffe95c 20% 85%,transparent 85%);transform:rotate(-3deg)}
+.u08 .xn{font-size:1.9em;font-weight:600;margin:0}
+.u08 .xd{color:#e8554a;opacity:1;transform:rotate(-3deg);align-self:flex-start;font-size:.95em}
+.u08 .xbars{display:none}
+.u08 .xline{display:block;height:4.2em;color:#4a8fe0;border-left:var(--pen);border-bottom:var(--pen);border-radius:0 0 0 .2em}
+.u08 .xline svg{animation:uidraw .9s ease-out both}
+.u08 .xline u{display:block;background:none;box-shadow:0 0 0 .12em #e8554a;width:.9em;height:.8em;right:-.45em;top:calc(var(--ey)*100% - .4em)}
+.u08 .xt{border:var(--pen);background:#fff;border-radius:1em .8em 1em .9em;width:3.2em;height:1.7em}
+.u08 .xt i{background:#3a3835;width:1.05em;height:1.05em;top:.2em;border-radius:50% 45% 50% 48%}
+.u08 .xt[aria-pressed=true] i{background:#e8554a;transform:translateX(1.5em)}
+.u08 .xs{font-size:1em}
+.u08 .xr{--rc:#ff9b93;--rt:transparent;--rw:.7em;width:3.8em;height:3.8em;border:var(--pen);border-radius:50% 46% 52% 48%}
+.u08 .xr b{font-weight:600;font-size:1.1em;width:auto;height:auto}
+.u08 .xk{font-size:1em}
+.u08 .xk i{width:1em;height:1em;border:var(--pen);border-radius:.2em .3em .2em .35em}
+.u08 .xk.on i::after{color:#e8554a;font-size:1.3em;transform:translate(.12em,-.15em) rotate(-8deg)}
+.u08 .xb{border:var(--pen);border-radius:.3em .5em .3em .6em;background:repeating-linear-gradient(-45deg,#ffb3ad 0 .15em,#ffe1de .15em .4em);font-size:1.05em;font-weight:600;padding:.25em}
+.u08 .xb::after{content:' →'}
+.u08 .xb.hit{transform:rotate(-1.5deg) scale(.96)}
+.u08 .xst button{border:var(--pen);width:1.5em;height:1.5em}
+.u08 .xst b{font-weight:600}
+
+/* 09 包浩斯 */
+.u09{--ink:#141414;--rd:#e8402a;--y:#f6c226;--bl:#2a55c8;background:#f1e7d0;gap:.5em;padding:.8em;font-family:var(--font-display)}
+.u09 .xc{background:#faf5e8}
+.u09 .xb2{background:var(--y)}
+.u09 .xd4{background:var(--bl);color:#fff}
+.u09 .xe{background:#141414;color:#fff}
+.u09 .xl{font-family:inherit;letter-spacing:0;text-transform:lowercase;font-size:.8em;opacity:1}
+.u09 .xseg{gap:0}
+.u09 .xseg .on{background:#141414;color:#fff}
+.u09 .xn{font-size:2.5em}
+.u09 .xd{position:absolute;right:.9em;top:3em;display:grid;place-items:center;width:3em;height:3em;background:var(--rd);color:#fff;opacity:1;border-radius:50%;font-weight:800}
+.u09 .xbars{gap:.55em;height:6.4em}
+.u09 .xbars i::after{height:calc(var(--v)*76%)}
+.u09 .xbars i::before{content:'';position:absolute;left:0;right:0;bottom:calc(var(--v)*76%);aspect-ratio:1;background:var(--rd);border-radius:50%;transition:bottom .45s cubic-bezier(.3,1.3,.5,1)}
+.u09 .xbars i:nth-child(3n+2)::before{background:var(--bl);border-radius:0;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.u09 .xbars i:nth-child(3n)::before{background:var(--y);border-radius:0}
+.u09 .xt{border-radius:0;background:#141414}
+.u09 .xt[aria-pressed=true] i{background:var(--rd)}
+.u09 .xt i{background:#fff}
+.u09 .xs{font-size:1.6em;font-weight:800;text-transform:lowercase;line-height:1}
+.u09 .xr{--rc:var(--rd);--rt:#141414;--rw:10em}
+.u09 .xr b{color:#fff}
+.u09 .xk{text-transform:lowercase}
+.u09 .xk i{background:#fff}
+.u09 .xk.on i{background:var(--y);border-radius:50%}
+.u09 .xk.on i::after{content:none}
+.u09 .xb{background:var(--y);color:#141414;text-transform:lowercase;display:flex;align-items:center;justify-content:center;gap:.6em;font-weight:800}
+.u09 .xb::before{content:'';border-left:.8em solid currentColor;border-top:.5em solid transparent;border-bottom:.5em solid transparent}
+.u09 .xb.hit{background:var(--rd);color:#fff;transform:none}
+.u09 .xst b{font-size:2.2em;font-weight:800}
+.u09 .xst button{background:var(--y);color:#141414;font-weight:800}
+.u09 .xst button:first-child{border-radius:0}
+
+/* 10 映像管終端機 */
+.u10{--g:#3f6;color:var(--g);background:radial-gradient(120% 90% at 50% 50%,#062010,#020a05);font-family:var(--font-mono);text-shadow:0 0 .5em rgba(51,255,102,.6);padding:1.5em 1.1em 1.1em;gap:1.1em .8em}
+.u10::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(rgba(0,0,0,.3) 0 1px,transparent 1px 3px)}
+.u10 .xc{border:1px solid #1f9a45;padding:.9em .7em .7em;animation:uiboot .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*.09s)}
+.u10 .xl{position:absolute;top:-.65em;left:.6em;background:#041509;padding:0 .4em;opacity:1;text-transform:lowercase;letter-spacing:0;font-size:.8em}
+.u10 .xseg{top:-.7em;right:.6em;background:#041509;padding:0 .2em;gap:.2em}
+.u10 .xseg button{padding:0 .4em;font-size:.8em}
+.u10 .xseg .on{background:var(--g);color:#031208;text-shadow:none}
+.u10 .xn{font-weight:500;font-size:2em}
+.u10 .xd{opacity:.7}
+.u10 .xbars{gap:.2em}
+.u10 .xbars i::after{background:var(--g);box-shadow:0 0 .5em rgba(51,255,102,.5)}
+.u10 .xbars .hi::after{background:#b6ffc8}
+.u10 .xt{width:auto;height:auto;border-radius:0;font-size:1.3em;align-self:flex-start}
+.u10 .xt i{display:none}
+.u10 .xt::before{content:'[ ]'}
+.u10 .xt[aria-pressed=true]::before{content:'[x]'}
+.u10 .xs::after{content:'bloom off'}
+.u10 .xt[aria-pressed=true]+.xs::after{content:'bloom on'}
+.u10 .xr{width:100%;height:auto;border-radius:0;display:flex;flex-direction:column-reverse;align-items:stretch;gap:.3em;margin:auto 0 0}
+.u10 .xr::before{position:static;height:.8em;border-radius:0;background:linear-gradient(90deg,var(--g) calc(var(--p)*1%),#0b3518 0);-webkit-mask:repeating-linear-gradient(90deg,#000 0 .35em,transparent .35em .5em);mask:repeating-linear-gradient(90deg,#000 0 .35em,transparent .35em .5em)}
+.u10 .xr b{display:block;width:auto;height:auto;font-size:1.8em;font-weight:500;border-radius:0;text-align:left}
+.u10 .xr b::after{font-size:1em}
+.u10 .xk i{width:auto;height:auto}
+.u10 .xk i::after{content:'[ ]'}
+.u10 .xk.on i::after{content:'[x]';font-size:1em}
+.u10 .xb{padding:.2em .3em;font-weight:500;align-self:flex-start;transition:none}
+.u10 .xb::before{content:'< '}
+.u10 .xb::after{content:' >'}
+.u10 .xb.hit{background:var(--g);color:#031208;text-shadow:none;transform:none}
+.u10 .xst b{font-weight:500}
+.u10 .xst button{border-radius:0;width:auto}
+
+/* 11 瑞士編輯風 */
+.u11{--ink:#151412;--rd:#e63a22;--sf:"Instrument Serif","Times New Roman",serif;background:#f1eee4;gap:.9em 1em;padding:1.2em;counter-reset:s}
+.u11 .xc{padding:.6em 0 0;border-top:1px solid #151412;counter-increment:s}
+.u11 .xl{font-size:.62em;opacity:1}
+.u11 .xl::before{content:'0' counter(s) '  ';color:var(--rd)}
+.u11 .xseg{top:.45em;right:0}
+.u11 .xseg button{font:500 .62em var(--font-mono);text-transform:uppercase;letter-spacing:.08em;color:#8d897d;padding:.2em .5em}
+.u11 .xseg .on{color:#151412;box-shadow:inset 0 -1px 0 var(--rd)}
+.u11 .xn{font:400 4.2em/.9 var(--sf);letter-spacing:-.03em;margin-top:.1em}
+.u11 .xd{color:var(--rd);font:500 .62em var(--font-mono);opacity:1;text-transform:uppercase;letter-spacing:.06em}
+.u11 .xbars{display:none}
+.u11 .xline{display:block;height:4.6em;border-bottom:1px solid #cfcabd}
+.u11 .xline path{stroke-width:1}
+.u11 .xline svg{animation:uidraw 1s ease-out both}
+.u11 .xline u{display:block;background:var(--rd);width:.5em;height:.5em;right:-.25em;top:calc(var(--ey)*100% - .25em)}
+.u11 .xs{order:1;font:400 2.3em/1 var(--sf)}
+.u11 .xs::after{content:'Night'}
+.u11 .xt[aria-pressed=true]+.xs::after{content:'Day'}
+.u11 .xt{order:2;border-radius:0;width:2.6em;height:1.3em;box-shadow:inset 0 0 0 1px #151412}
+.u11 .xt i{border-radius:0;background:#151412;width:.9em;height:.9em}
+.u11 .xt[aria-pressed=true] i{transform:translateX(1.3em)}
+.u11 .xr2{background:var(--rd);color:#fff;border-top:0;padding:.7em}
+.u11 .xr2 .xl::before{color:#fff}
+.u11 .xr{width:auto;height:auto;border-radius:0;align-self:flex-start;margin:auto 0 0}
+.u11 .xr::before{display:none}
+.u11 .xr b{width:auto;height:auto;font:400 3.6em/.9 var(--sf);border-radius:0}
+.u11 .xr b::after{content:none}
+.u11 .xk{flex-direction:row-reverse;justify-content:space-between;border-bottom:1px solid #cfcabd;padding:.3em 0;font:400 1.3em var(--sf)}
+.u11 .xk i::after{content:'+';color:var(--rd)}
+.u11 .xk.on i::after{content:'–';font-size:1em}
+.u11 .xk.on span{text-decoration:none;font-style:italic;opacity:1}
+.u11 .xb{align-self:flex-start;padding:.2em 0;font-weight:500;font-size:.8em;box-shadow:inset 0 -1px 0 #151412;transition:transform .18s,color .18s}
+.u11 .xb::after{content:' →'}
+.u11 .xb.hit{color:var(--rd);transform:translateX(.3em)}
+.u11 .xst b{font:400 2.6em/1 var(--sf)}
+.u11 .xst button{border-radius:0;box-shadow:inset 0 0 0 1px #151412;width:1.5em;height:1.5em}
+
+/* 12 孔版印刷 */
+.u12{--pk:#ff48b0;--y:#ffd23f;--b:#2f4bd8;--ink:var(--b);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"),#f3ecdc;font-family:var(--font-display);gap:.8em;padding:1.1em}
+.u12 .xc{border:.18em solid var(--b);border-radius:1em .8em 1.1em .9em}
+.u12 .xa::before{content:'';position:absolute;left:.5em;top:1.7em;width:4.4em;height:4.4em;border-radius:50%;background:var(--y);z-index:-1}
+.u12 .xb2{background:var(--y)}
+.u12 .xr2{background:radial-gradient(var(--pk) .09em,transparent .11em) 0 0/.45em .45em,#ffe3f1}
+.u12 .xe{background:var(--b);color:#fff}
+.u12 .xl{opacity:1;font-size:.62em}
+.u12 .xseg{border:.15em solid var(--pk);border-radius:.4em;overflow:hidden;gap:0;top:.6em;right:.6em}
+.u12 .xseg button{font:500 .58em var(--font-mono);text-transform:uppercase;padding:.35em .5em}
+.u12 .xseg .on{background:var(--pk);color:#fff}
+.u12 .xn{font-size:2.7em;letter-spacing:-.03em;text-shadow:.07em .06em 0 var(--pk)}
+.u12 .xd{color:var(--pk);opacity:1;font:500 .7em var(--font-mono);text-transform:uppercase}
+.u12 .xbars i::after{background:repeating-linear-gradient(-45deg,var(--b) 0 .08em,transparent .08em .32em) 0 100%/100% 60% no-repeat,var(--pk);filter:drop-shadow(-.16em .1em 0 rgba(255,210,63,.9))}
+.u12 .xt{background:#fff;border:.15em solid var(--b)}
+.u12 .xt i{background:var(--pk);width:1.3em;height:1.3em;box-shadow:.12em .08em 0 var(--b)}
+.u12 .xt[aria-pressed=true]{background:var(--pk)}
+.u12 .xt[aria-pressed=true] i{background:var(--y);transform:translateX(1.5em)}
+.u12 .xs{font-weight:800;font-size:1.3em;text-transform:uppercase}
+.u12 .xr{--rc:var(--b);--rt:rgba(255,255,255,.7);--rw:.8em}
+.u12 .xr b{text-shadow:.07em .06em 0 var(--pk)}
+.u12 .xk i{border:.15em solid var(--b);border-radius:.25em;background:#fff}
+.u12 .xk.on i{background:var(--pk);color:#fff;box-shadow:.12em .1em 0 var(--y)}
+.u12 .xb{border:.18em solid var(--b);border-radius:.5em;background:#fff;text-transform:uppercase;letter-spacing:.06em;font-weight:800;box-shadow:.25em .22em 0 var(--pk)}
+.u12 .xb.hit{transform:translate(.25em,.22em);box-shadow:0 0 0 var(--pk)}
+.u12 .xst button{background:#fff;color:var(--b);font-weight:800}
+.u12 .xst b{font-weight:800;text-shadow:.07em .06em 0 var(--pk)}

@@ -423,6 +423,8 @@ function icHTML(n){
 }
 function icReplay(t){ const svg = t.querySelector('svg'); const c = svg.cloneNode(true); svg.replaceWith(c); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit'); }
 function previewHTML(e){
+  const uk = /^ui-(\d\d)$/.exec(e.preview || '');
+  if (uk && UI_C[uk[1]]) return uiHTML(uk[1], esc(e.name));
   const ik = /^ic-0([1-6])$/.exec(e.preview || '');
   if (ik) return icHTML(+ik[1]);
   const sk = /^sw-0([1-6])$/.exec(e.preview || '');
@@ -682,6 +684,7 @@ $('main').addEventListener('click', ev => {
     tab.appendChild(rip); rip.addEventListener('animationend', () => rip.remove());
     return;
   }
+  if (ev.target.closest('.uix') && uiTap(ev)) return;              /* UI-01 到 UI-12 的控制項（ui12.js） */
   const bgx = ev.target.closest('.bgx');
   if (bgx) { bgTap(bgx, ev); return; }
   const glx = ev.target.closest('.glx');
