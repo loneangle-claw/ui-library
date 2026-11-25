@@ -784,9 +784,14 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeAll);
   if (local && Array.isArray(local.entries)) { entries = local.entries; cats = Array.isArray(local.categories) ? local.categories : []; loaded = true; }
   render();
   let def = null;
-  if (!loaded || !cats.length) { try { const r = await fetch('entries.default.json'); if (r.ok) def = await r.json(); } catch (_) {} }
+  if (!loaded || !cats.length || !ghReady()) { try { const r = await fetch('entries.default.json', { cache: 'no-cache' }); if (r.ok) def = await r.json(); } catch (_) {} }
   if (def && !cats.length && Array.isArray(def.categories)) { cats = def.categories; if (loaded) render(); }
   if (ghReady()) { await pull(); if (!loaded) { loaded = true; render(); } return; }
   setSync('只存在這台裝置');
-  if (!loaded) { if (def) { entries = def.entries || []; saveLocal(); } loaded = true; render(); }
+  /* 沒設定同步的裝置：每次開啟都把內建資料合進來——補上新條目與分類，保留這台改過的星號、狀態、備註，刪掉的不會回來 */
+  const was = JSON.stringify([cats, entries]);
+  if (def) mergeRemote(def, loaded);
+  const changed = JSON.stringify([cats, entries]) !== was;
+  if (changed) saveLocal();
+  if (!loaded || changed) { loaded = true; render(); }
 })();
