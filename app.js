@@ -435,6 +435,7 @@ function previewHTML(e){
   if (e.preview === 'cd-01') return cdHTML();
   if (e.preview === 'lp-01') return lpHTML();
   if (e.preview === 'sd-01') return sdHTML(esc(e.name));
+  if (e.preview === 'fm-01') return fmHTML(esc(e.name));
   const fk = /^mo-(\d\d)$/.exec(e.preview || '');
   if (fk && +fk[1] >= 2 && +fk[1] <= 15) return cdFxHTML(+fk[1] - 2);
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
@@ -653,7 +654,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs(); initNts(); initSws(); initCds(); initCdFx(); initLps(); initSds();
+  placeAll(); initBgs(); initNts(); initSws(); initCds(); initCdFx(); initLps(); initSds(); initFms();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -669,7 +670,7 @@ window.addEventListener('hashchange', () => {
 
 /* 事件：內容區 */
 $('main').addEventListener('click', ev => {
-  if (ev.target.closest('.cdx, .lpx')) return;                     /* CD-01 自己處理點擊（cd01.js） */
+  if (ev.target.closest('.cdx, .lpx, .fmx')) return;               /* CD-01、LP-01、FM-01 自己處理點擊 */
   const tab = ev.target.closest('button.tab');
   if (tab) {
     const nav = tab.closest('.bn'), idx = [...nav.querySelectorAll('.tab')].indexOf(tab);
