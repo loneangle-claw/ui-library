@@ -436,6 +436,7 @@ function previewHTML(e){
   if (e.preview === 'lp-01') return lpHTML();
   if (e.preview === 'sd-01') return sdHTML(esc(e.name));
   if (e.preview === 'fm-01') return fmHTML(esc(e.name));
+  if (e.preview === 'ln-01') return lnHTML(esc(e.name));
   const fk = /^mo-(\d\d)$/.exec(e.preview || '');
   if (fk && +fk[1] >= 2 && +fk[1] <= 15) return cdFxHTML(+fk[1] - 2);
   const nk = /^nt-0([1-6])$/.exec(e.preview || '');
@@ -654,7 +655,7 @@ function render(){
   const e = route && entries.find(x => x.id === route);
   document.body.classList.toggle('in-detail', !!e);
   if (e) renderDetail(e); else renderGrid();
-  placeAll(); initBgs(); initNts(); initSws(); initCds(); initCdFx(); initLps(); initSds(); initFms();
+  placeAll(); initBgs(); initNts(); initSws(); initCds(); initCdFx(); initLps(); initSds(); initFms(); initLns();
 }
 function copyCmd(e){
   const text = `用 UI 靈感庫的 ${e.code} ${e.name} 樣式來做`;
@@ -687,7 +688,8 @@ $('main').addEventListener('click', ev => {
     return;
   }
   if (ev.target.closest('.uix') && uiTap(ev)) return;              /* UI-01 到 UI-12 的控制項（ui12.js） */
-  if (ev.target.closest('.sdx') && sdTap(ev)) return;              /* SD-01 的收合按鈕（sd01.js） */
+  if (ev.target.closest('.sdx') && sdTap(ev)) return;
+  if (ev.target.closest('.lnx') && lnTap(ev)) return;              /* LN-01 的步驟按鈕與時間軸（ln01.js） */              /* SD-01 的收合按鈕（sd01.js） */
   const bgx = ev.target.closest('.bgx');
   if (bgx) { bgTap(bgx, ev); return; }
   const glx = ev.target.closest('.glx');
